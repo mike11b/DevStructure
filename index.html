@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DVStructure — Marketplace</title>
+  <title>DEVSTRUCTURE — Marketplace</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #060A10;
-      --bg2:       #0A0E1A;
-      --bg3:       #0D1117;
-      --bg4:       #111827;
-      --border:    #1E2A38;
-      --border2:   #2D3748;
-      --text:      #F1F5F9;
-      --text2:     #CBD5E1;
-      --muted:     #94A3B8;
-      --muted2:    #64748B;
-      --cyan:      #00D4FF;
-      --green:     #6EE7B7;
+      --bg:        #0D0A1A;
+      --bg2:       #120D24;
+      --bg3:       #160F2A;
+      --bg4:       #1C1335;
+      --border:    #2A1F45;
+      --border2:   #3D2D60;
+      --text:      #F0EEFF;
+      --text2:     #C4B8E8;
+      --muted:     #9B8FBF;
+      --muted2:    #6B5F8F;
+      --cyan:      #00C8F0;
+      --magenta:   #FF2D78;
       --amber:     #F59E0B;
 
       --font-body: 'Plus Jakarta Sans', sans-serif;
@@ -55,8 +55,8 @@
       position: fixed;
       inset: 0;
       background-image:
-        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+        linear-gradient(rgba(0,200,240,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,240,0.04) 1px, transparent 1px);
       background-size: 40px 40px;
       pointer-events: none;
       z-index: 0;
@@ -66,36 +66,39 @@
     nav {
       position: sticky; top: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px; height: 56px;
-      background: rgba(6,10,16,0.85);
-      backdrop-filter: blur(16px);
+      padding: 0 32px; height: 60px;
+      background: rgba(13,10,26,0.88);
+      backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
     }
     .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-size: 18px; font-weight: 800;
-      letter-spacing: -0.02em;
-      background: linear-gradient(90deg, var(--cyan), var(--green));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo-text {
+      font-family: var(--font-body);
+      font-size: 17px; font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--cyan);
     }
     .nav-links { display: flex; gap: 24px; }
     .nav-links a {
-      color: var(--muted); font-size: 13px; text-decoration: none;
-      font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em;
+      color: var(--muted); font-size: 14px; text-decoration: none;
+      font-family: var(--font-body); font-weight: 500;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--cyan); }
+    .nav-links a:hover { color: var(--text); }
     .nav-cta {
       background: transparent;
-      border: 1px solid rgba(0,212,255,0.4);
+      border: 1px solid rgba(0,200,240,0.45);
       color: var(--cyan);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px; font-weight: 700;
-      padding: 7px 16px; border-radius: 6px;
-      cursor: pointer; letter-spacing: 0.06em;
+      font-family: var(--font-body);
+      font-size: 13px; font-weight: 700;
+      padding: 7px 18px; border-radius: 6px;
+      cursor: pointer;
       transition: all 0.2s;
     }
-    .nav-cta:hover { background: rgba(0,212,255,0.08); }
+    .nav-cta:hover { background: rgba(0,200,240,0.10); }
 
     /* ── HERO ── */
     .hero {
@@ -105,37 +108,37 @@
     }
     .hero-tag {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--bg2); border: 1px solid rgba(0,212,255,0.2);
+      background: var(--bg2); border: 1px solid rgba(0,200,240,0.25);
       border-radius: 6px; padding: 6px 14px; margin-bottom: 24px;
     }
     .hero-tag .dot {
       width: 7px; height: 7px; border-radius: 50%;
-      background: var(--cyan); box-shadow: 0 0 10px var(--cyan);
+      background: var(--magenta); box-shadow: 0 0 10px var(--magenta);
       animation: pulse 2s infinite;
     }
     @keyframes pulse {
-      0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--cyan); }
-      50%       { opacity: 0.5; box-shadow: 0 0 4px var(--cyan); }
+      0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--magenta); }
+      50%       { opacity: 0.5; box-shadow: 0 0 4px var(--magenta); }
     }
     .hero-tag span {
-      color: var(--cyan); font-family: 'JetBrains Mono', monospace;
-      font-size: 11px; letter-spacing: 0.12em;
+      color: var(--cyan); font-family: var(--font-mono);
+      font-size: 12px; letter-spacing: 0.1em;
     }
     .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(36px, 6vw, 64px);
-      font-weight: 800; line-height: 1.05;
+      font-family: var(--font-body);
+      font-size: clamp(40px, 6vw, 68px);
+      font-weight: 800; line-height: 1.08;
       letter-spacing: -0.03em; color: var(--text);
     }
     .hero h1 em {
       font-style: normal;
-      background: linear-gradient(90deg, var(--cyan) 0%, var(--green) 100%);
+      background: linear-gradient(90deg, var(--cyan) 0%, var(--magenta) 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     .hero p {
-      color: var(--muted); font-size: 16px; margin-top: 16px;
+      color: var(--muted); font-size: 17px; margin-top: 20px;
       max-width: 480px; margin-left: auto; margin-right: auto;
-      line-height: 1.6;
+      line-height: 1.65; font-weight: 400;
     }
 
     /* ── FILTERS ── */
@@ -147,17 +150,17 @@
     .filter-btn {
       background: transparent;
       border: 1px solid var(--border);
-      color: var(--muted2);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px; font-weight: 600;
-      padding: 7px 16px; border-radius: 6px;
-      cursor: pointer; letter-spacing: 0.05em;
+      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: 13px; font-weight: 600;
+      padding: 8px 18px; border-radius: 6px;
+      cursor: pointer;
       transition: all 0.2s;
     }
-    .filter-btn:hover { border-color: rgba(0,212,255,0.3); color: var(--cyan); }
+    .filter-btn:hover { border-color: rgba(0,200,240,0.35); color: var(--text); }
     .filter-btn.active {
-      background: rgba(0,212,255,0.08);
-      border-color: rgba(0,212,255,0.4);
+      background: rgba(0,200,240,0.10);
+      border-color: rgba(0,200,240,0.45);
       color: var(--cyan);
     }
 
@@ -214,40 +217,40 @@
     .card-badges { display: flex; align-items: center; gap: 7px; }
 
     .lang-badge {
-      display: flex; align-items: center; gap: 4px;
-      border-radius: 4px; padding: 2px 8px;
+      display: flex; align-items: center; gap: 5px;
+      border-radius: 5px; padding: 3px 9px;
       border: 1px solid;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px; font-weight: 600; letter-spacing: 0.05em;
+      font-family: var(--font-mono);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.03em;
     }
     .lang-dot {
-      width: 6px; height: 6px; border-radius: 50%;
+      width: 7px; height: 7px; border-radius: 50%;
       display: inline-block;
     }
     .type-badge {
-      background: var(--border); color: #94A3B8;
-      font-size: 10px; font-family: 'JetBrains Mono', monospace;
-      padding: 2px 7px; border-radius: 4px; border: 1px solid var(--border2);
+      background: var(--border); color: var(--muted);
+      font-size: 12px; font-family: var(--font-body); font-weight: 600;
+      padding: 3px 9px; border-radius: 5px; border: 1px solid var(--border2);
     }
 
     .status-badge {
-      font-size: 10px; font-weight: 700;
-      padding: 3px 8px; border-radius: 4px;
-      font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 0.04em; text-transform: uppercase;
+      font-size: 11px; font-weight: 700;
+      padding: 3px 9px; border-radius: 5px;
+      font-family: var(--font-body);
+      letter-spacing: 0.02em;
       border: 1px solid;
     }
 
     .card-title {
-      margin-top: 12px;
-      font-family: 'Syne', sans-serif;
-      font-size: 15px; font-weight: 700;
-      line-height: 1.3; letter-spacing: -0.01em;
+      margin-top: 14px;
+      font-family: var(--font-body);
+      font-size: 16px; font-weight: 700;
+      line-height: 1.35; letter-spacing: -0.01em;
       color: var(--text);
     }
     .card-tagline {
-      margin-top: 4px; color: var(--muted);
-      font-size: 12px; line-height: 1.5;
+      margin-top: 5px; color: var(--text2);
+      font-size: 13px; line-height: 1.55; font-weight: 400;
     }
 
     /* CODE PREVIEW */
@@ -268,15 +271,15 @@
       width: 9px; height: 9px; border-radius: 50%;
     }
     .code-filename {
-      color: var(--muted2); font-size: 10px;
-      font-family: 'JetBrains Mono', monospace;
+      color: var(--muted); font-size: 12px;
+      font-family: var(--font-mono);
     }
     .preview-btn {
       background: transparent; cursor: pointer;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px; font-weight: 700;
-      padding: 2px 7px; border-radius: 3px;
-      letter-spacing: 0.06em; transition: all 0.2s;
+      font-family: var(--font-mono);
+      font-size: 10px; font-weight: 700;
+      padding: 3px 8px; border-radius: 4px;
+      letter-spacing: 0.04em; transition: all 0.2s;
     }
 
     .code-body {
@@ -292,14 +295,14 @@
       line-height: 1.75;
     }
     .line-num {
-      color: #2D3748; font-size: 11px; width: 32px;
-      text-align: right; padding-right: 12px;
-      font-family: 'JetBrains Mono', monospace;
+      color: #374151; font-size: 12px; width: 34px;
+      text-align: right; padding-right: 14px;
+      font-family: var(--font-mono);
       user-select: none; flex-shrink: 0;
     }
     .line-code {
-      font-size: 11px;
-      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-family: var(--font-mono);
       color: #CBD5E1;
       white-space: pre;
     }
@@ -321,10 +324,10 @@
     }
     .stat { display: flex; gap: 4px; align-items: baseline; }
     .stat-val {
-      font-size: 11px; font-weight: 700;
-      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; font-weight: 700;
+      font-family: var(--font-mono);
     }
-    .stat-label { font-size: 10px; color: var(--muted2); }
+    .stat-label { font-size: 12px; color: var(--muted2); font-family: var(--font-body); }
 
     /* TAGS */
     .tags {
@@ -333,9 +336,9 @@
     }
     .tag {
       background: var(--border); color: var(--muted);
-      font-size: 10px; padding: 2px 7px;
-      border-radius: 3px; border: 1px solid var(--border2);
-      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; padding: 3px 9px;
+      border-radius: 4px; border: 1px solid var(--border2);
+      font-family: var(--font-body); font-weight: 500;
     }
 
     /* FOOTER */
@@ -344,34 +347,34 @@
       padding: 12px 16px 16px;
     }
     .rating-block { display: flex; flex-direction: column; gap: 3px; }
-    .stars { color: var(--amber); font-size: 13px; letter-spacing: -1px; }
-    .rating-val { color: var(--text); font-size: 12px; font-weight: 700; margin-left: 4px; }
-    .review-count { color: var(--muted2); font-size: 10px; }
+    .stars { color: var(--amber); font-size: 14px; letter-spacing: -1px; }
+    .rating-val { color: var(--text); font-size: 14px; font-weight: 700; margin-left: 4px; }
+    .review-count { color: var(--muted); font-size: 12px; font-family: var(--font-body); }
 
-    .price-block { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
-    .price-row { display: flex; align-items: center; gap: 6px; }
+    .price-block { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+    .price-row { display: flex; align-items: center; gap: 7px; }
     .discount-badge {
-      font-size: 10px; padding: 1px 5px; border-radius: 3px;
-      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; padding: 2px 7px; border-radius: 4px;
+      font-family: var(--font-body); font-weight: 700;
       background: rgba(124,58,237,0.12);
       color: #A78BFA;
       border: 1px solid rgba(124,58,237,0.25);
     }
     .original-price {
-      color: #374151; font-size: 11px;
-      text-decoration: line-through;
+      color: var(--muted2); font-size: 13px;
+      text-decoration: line-through; font-family: var(--font-body);
     }
     .price {
-      color: var(--text); font-size: 17px; font-weight: 800;
-      font-family: 'Syne', sans-serif;
+      color: var(--text); font-size: 19px; font-weight: 800;
+      font-family: var(--font-body); letter-spacing: -0.02em;
     }
-    .price-currency { font-size: 10px; color: var(--muted); font-family: 'DM Sans', sans-serif; }
+    .price-currency { font-size: 12px; color: var(--muted); font-weight: 500; }
 
     .buy-btn {
-      border-radius: 6px; padding: 7px 16px;
-      font-size: 11px; font-weight: 700;
-      cursor: pointer; letter-spacing: 0.06em;
-      font-family: 'JetBrains Mono', monospace;
+      border-radius: 7px; padding: 9px 20px;
+      font-size: 13px; font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font-body);
       transition: all 0.25s ease;
       border: 1px solid;
     }
@@ -382,9 +385,9 @@
       border-top: 1px solid var(--border);
       padding: 24px;
       text-align: center;
-      color: var(--border2);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      color: var(--muted2);
+      font-family: var(--font-mono);
+      font-size: 12px;
     }
 
     /* ── SCROLLBAR ── */
@@ -405,7 +408,26 @@
 
   <!-- NAVBAR -->
   <nav>
-    <div class="nav-logo">DVStructure</div>
+    <a class="nav-logo" href="#">
+      <!-- Logo SVG recreado del branding DEVSTRUCTURE -->
+      <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Flecha exterior magenta -->
+        <polygon points="50,8 88,52 74,52 50,24 26,52 12,52" fill="#FF2D78"/>
+        <!-- Flecha interior cyan -->
+        <polygon points="50,30 76,58 65,58 50,42 35,58 24,58" fill="#00C8F0"/>
+        <!-- Base circuito -->
+        <rect x="30" y="62" width="40" height="5" rx="2" fill="#FF2D78"/>
+        <!-- Pines circuito -->
+        <rect x="36" y="67" width="3" height="8" rx="1" fill="#00C8F0"/>
+        <rect x="44" y="67" width="3" height="10" rx="1" fill="#00C8F0"/>
+        <rect x="53" y="67" width="3" height="8" rx="1" fill="#00C8F0"/>
+        <rect x="61" y="67" width="3" height="6" rx="1" fill="#00C8F0"/>
+        <!-- Nodos -->
+        <circle cx="36" cy="77" r="2.5" fill="#FF2D78"/>
+        <circle cx="56" cy="79" r="2.5" fill="#FF2D78"/>
+      </svg>
+      <span class="nav-logo-text">DEVSTRUCTURE</span>
+    </a>
     <div class="nav-links">
       <a href="#">Tienda</a>
       <a href="#">Manuales</a>
@@ -419,7 +441,7 @@
   <section class="hero">
     <div class="hero-tag">
       <span class="dot"></span>
-      <span>MARKETPLACE v1.0 — BETA ABIERTA</span>
+      <span>DEVSTRUCTURE — MARKETPLACE v1.0</span>
     </div>
     <h1>Código que<br><em>trabaja por ti</em></h1>
     <p>Macros de automatización y manuales técnicos para analistas, contadores y desarrolladores.</p>
@@ -438,7 +460,7 @@
   <div class="grid" id="grid"></div>
 
   <!-- FOOTER -->
-  <footer>// DVStructure · index.html · Todos los derechos reservados 2026</footer>
+  <footer>// DEVSTRUCTURE · index.html · Todos los derechos reservados 2026</footer>
 
   <script>
     const PRODUCTS = [
@@ -451,7 +473,7 @@
         lines: 1240, files: 3,
         tags: ["Excel", "VBA", "Facturas", "Automatización"],
         badge: "Best Seller", badgeColor: "#F59E0B",
-        gradient: ["#00D4FF", "#0077AA"],
+        gradient: ["#00C8F0", "#0088AA"],
         icon: "⚡",
         filename: "main.bas",
         code: [
@@ -474,7 +496,7 @@
         lines: 890, files: 5,
         tags: ["Python", "Pandas", "Data Science", "ETL"],
         badge: "Nuevo", badgeColor: "#10B981",
-        gradient: ["#6EE7B7", "#059669"],
+        gradient: ["#FF2D78", "#AA1050"],
         icon: "🐍",
         filename: "main.py",
         code: [
@@ -496,8 +518,8 @@
         rating: 4.7, reviews: 203, sales: 1203,
         lines: null, files: 1,
         tags: ["VBA", "Excel", "PDF", "148 páginas"],
-        badge: "Top Rated", badgeColor: "#8B5CF6",
-        gradient: ["#A78BFA", "#7C3AED"],
+        badge: "Top Rated", badgeColor: "#00C8F0",
+        gradient: ["#00C8F0", "#FF2D78"],
         icon: "📘",
         filename: "README.md",
         code: [
@@ -537,10 +559,10 @@
     ];
 
     const LANG_THEMES = {
-      VBA:        { bg: "#1a1035", accent: "#A78BFA", dot: "#7C3AED" },
-      Python:     { bg: "#0d2818", accent: "#6EE7B7", dot: "#10B981" },
-      JavaScript: { bg: "#1a1200", accent: "#FCD34D", dot: "#F59E0B" },
-      SQL:        { bg: "#0d1f35", accent: "#60A5FA", dot: "#3B82F6" },
+      VBA:        { bg: "#1C1040", accent: "#00C8F0", dot: "#00A8CC" },
+      Python:     { bg: "#1A0D35", accent: "#FF2D78", dot: "#CC1F5C" },
+      JavaScript: { bg: "#1A1000", accent: "#FCD34D", dot: "#F59E0B" },
+      SQL:        { bg: "#0D1535", accent: "#A78BFA", dot: "#7C3AED" },
     };
 
     // ── BUILD CARD HTML ─────────────────────────────────────────────
