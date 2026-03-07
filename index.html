@@ -386,6 +386,93 @@
       .ctrl-hint { display: none; } /* esconde hints de teclado en móvil */
     }
 
+    /* ══════════════════════════════════════
+       PÁGINA: RECURSOS GRATUITOS
+    ══════════════════════════════════════ */
+    .free-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px; padding: 0 32px 80px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .free-card {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+      display: flex; gap: 0;
+      transition: border-color .3s, box-shadow .3s, transform .3s;
+      animation: fadeUp .5s both;
+    }
+    .free-card:hover {
+      border-color: var(--cyan); transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(0,200,240,.2);
+    }
+    .free-card-soon { border-style: dashed; border-color: var(--border2); }
+    .free-card-soon:hover { border-color: var(--magenta); box-shadow: 0 16px 40px rgba(0,0,0,.4); }
+    .free-card-icon {
+      font-size: 48px; padding: 28px 20px;
+      background: var(--bg2);
+      display: flex; align-items: flex-start; justify-content: center;
+      min-width: 90px; border-right: 1px solid var(--border);
+    }
+    .free-card-body { padding: 22px 22px 20px; flex: 1; }
+    .free-card-badges { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; }
+    .free-badge-lang {
+      font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 5px;
+      background: rgba(0,200,240,.12); border: 1px solid rgba(0,200,240,.3);
+      color: var(--cyan); font-family: var(--font-mono);
+    }
+    .free-badge-type {
+      font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 5px;
+      background: var(--border); border: 1px solid var(--border2); color: var(--muted);
+    }
+    .free-badge-free {
+      font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 5px;
+      background: rgba(34,197,94,.15); border: 1px solid rgba(34,197,94,.35);
+      color: #22C55E; letter-spacing: .04em;
+    }
+    .free-card-title {
+      font-size: 18px; font-weight: 800; color: var(--text);
+      line-height: 1.3; margin-bottom: 8px;
+    }
+    .free-card-desc {
+      font-size: 13px; color: var(--text2); line-height: 1.65; margin-bottom: 14px;
+    }
+    .free-checklist {
+      list-style: none; margin: 0 0 18px; padding: 0;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+    .free-checklist li {
+      font-size: 12.5px; color: var(--text2); padding-left: 20px; position: relative; line-height: 1.5;
+    }
+    .free-checklist li::before {
+      content: '✓'; position: absolute; left: 0;
+      color: #22C55E; font-weight: 800; font-size: 12px;
+    }
+    .free-card-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .free-download-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #00C8F0, #0088AA);
+      color: #0A0E1A; font-weight: 800; font-size: 13px;
+      padding: 10px 20px; border-radius: 8px; text-decoration: none;
+      border: none; cursor: pointer; font-family: var(--font-body);
+      transition: all .2s; box-shadow: 0 0 20px rgba(0,200,240,.3);
+    }
+    .free-download-btn:hover { transform: scale(1.04); box-shadow: 0 0 32px rgba(0,200,240,.5); }
+    .free-wa-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: transparent; border: 1px solid rgba(37,211,102,.4);
+      color: #25D366; font-weight: 700; font-size: 12px;
+      padding: 9px 16px; border-radius: 8px; text-decoration: none;
+      cursor: pointer; font-family: var(--font-body); transition: all .2s;
+    }
+    .free-wa-btn:hover { background: rgba(37,211,102,.1); border-color: #25D366; }
+    .free-soon-banner {
+      display: flex; flex-direction: column;
+      background: var(--bg2); border: 1px dashed var(--border2);
+      border-radius: 8px; padding: 14px; gap: 4px;
+      font-size: 13px; color: var(--muted);
+    }
+
     /* ── FOOTER ── */
     footer {
       position:relative; z-index:1; border-top:1px solid var(--border);
@@ -395,13 +482,46 @@
 
     ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 
-    @media(max-width:600px){
-      nav{padding:0 16px;}
-      .nav-links{display:none;}
-      .card{width:100%;max-width:360px;}
-      .grid{padding:0 16px 60px;}
-      .blog-grid{padding:0 16px 60px;}
-      .arcade-page{padding:24px 12px 60px;}
+    /* ── BOTTOM NAV (móvil) ── */
+    .bottom-nav {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 300;
+      background: rgba(13,10,26,.97); backdrop-filter: blur(20px);
+      border-top: 1px solid var(--border2);
+      height: 62px;
+    }
+    .bottom-nav-inner { display: flex; align-items: stretch; height: 100%; }
+    .bnav-item {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 3px;
+      color: var(--muted2); text-decoration: none;
+      font-size: 10px; font-weight: 700; letter-spacing: .02em;
+      border: none; background: transparent; cursor: pointer;
+      font-family: var(--font-body); transition: color .15s;
+      padding: 0; border-right: 1px solid var(--border);
+    }
+    .bnav-item:last-child { border-right: none; }
+    .bnav-item.active { color: var(--cyan); }
+    .bnav-item:active { background: var(--bg4); }
+    .bnav-icon { font-size: 19px; line-height: 1; }
+
+    @media(max-width:768px){
+      nav { padding: 0 14px; }
+      .nav-links { display: none; }
+      .nav-cta { font-size: 12px; padding: 6px 12px; }
+      .nav-logo-text { font-size: 14px; }
+      .bottom-nav { display: block; }
+      body { padding-bottom: 62px; }
+      .wa-float { bottom: 76px; right: 18px; width: 48px; height: 48px; }
+      .card { width: 100%; max-width: 420px; }
+      .grid { padding: 0 14px 40px; }
+      .blog-grid { padding: 0 14px 40px; grid-template-columns: 1fr; }
+      .arcade-page { padding: 20px 10px 40px; }
+      .arcade-hud { padding: 10px 14px; flex-wrap: wrap; gap: 8px; }
+      .hud-val { font-size: 18px; }
+      .arcade-controls { padding: 10px 14px; }
+      .free-grid { grid-template-columns: 1fr !important; padding: 0 14px 40px !important; }
+      .free-card { flex-direction: column !important; }
     }
   </style>
 </head>
@@ -426,11 +546,30 @@
   <div class="nav-links">
     <a href="#" onclick="showPage('blog')" id="nav-blog">Blog</a>
     <a href="#" onclick="showPage('shop')" id="nav-shop" class="active">Tienda</a>
+    <a href="#" onclick="showPage('free')" id="nav-free">Gratis</a>
     <a href="#" onclick="showPage('arcade')" id="nav-arcade">🕹 Arcade</a>
   </div>
   <button class="nav-cta" onclick="openWA('Hola! Quiero más información sobre DEVSTRUCTURE')">
     Contactar WA
   </button>
+</nav>
+
+<!-- BOTTOM NAV (móvil) -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <button class="bnav-item" id="bnav-blog" onclick="showPage('blog')">
+      <span class="bnav-icon">📰</span>Blog
+    </button>
+    <button class="bnav-item active" id="bnav-shop" onclick="showPage('shop')">
+      <span class="bnav-icon">🛒</span>Tienda
+    </button>
+    <button class="bnav-item" id="bnav-free" onclick="showPage('free')">
+      <span class="bnav-icon">🎁</span>Gratis
+    </button>
+    <button class="bnav-item" id="bnav-arcade" onclick="showPage('arcade')">
+      <span class="bnav-icon">🕹</span>Arcade
+    </button>
+  </div>
 </nav>
 
 <!-- ══ PAGE: BLOG ══ -->
@@ -447,6 +586,70 @@
 <div class="post-modal" id="post-modal">
   <div class="post-content" id="post-body">
     <button class="post-close" onclick="closePost()">✕</button>
+  </div>
+</div>
+
+<!-- ══ PAGE: RECURSOS GRATUITOS ══ -->
+<div class="page" id="page-free">
+  <div class="blog-hero">
+    <div class="section-tag"><span class="dot"></span>SIN COSTO · DESCARGA DIRECTA</div>
+    <h2>Recursos <em style="background:linear-gradient(90deg,#00C8F0,#FF2D78);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:normal">Gratuitos</em></h2>
+    <p>Material educativo 100% gratis de DEVSTRUCTURE. Descárgalo, compártelo y aprende.</p>
+  </div>
+
+  <div class="free-grid" id="free-grid">
+
+    <!-- Card: Manual Tablas Dinámicas -->
+    <div class="free-card">
+      <div class="free-card-icon">📊</div>
+      <div class="free-card-body">
+        <div class="free-card-badges">
+          <span class="free-badge-lang">Excel</span>
+          <span class="free-badge-type">PDF · 13 páginas</span>
+          <span class="free-badge-free">GRATIS</span>
+        </div>
+        <div class="free-card-title">Manual de Tablas Dinámicas</div>
+        <div class="free-card-desc">De cero a tu primer reporte dinámico en menos de 30 minutos. Incluye casos prácticos reales, errores comunes y atajos de teclado.</div>
+        <ul class="free-checklist">
+          <li>Qué son las Tablas Dinámicas y para qué sirven</li>
+          <li>Cómo preparar tus datos correctamente</li>
+          <li>Los 4 áreas: Filas, Columnas, Valores, Filtros</li>
+          <li>Agrupar, ordenar, Slicers y formato profesional</li>
+          <li>3 casos prácticos reales con configuración paso a paso</li>
+        </ul>
+        <div class="free-card-actions">
+          <a class="free-download-btn" href="Manual_Tablas_Dinamicas_DEVSTRUCTURE.pdf" download>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Descargar PDF gratis
+          </a>
+          <a class="free-wa-btn" href="#" onclick="openWA('Hola! Vi el manual gratuito de Tablas Dinámicas en DEVSTRUCTURE. ¿Tienen más recursos o productos de Excel?'); return false;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Preguntar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card: Próximo recurso (teaser) -->
+    <div class="free-card free-card-soon">
+      <div class="free-card-icon" style="opacity:.4">🔒</div>
+      <div class="free-card-body">
+        <div class="free-card-badges">
+          <span class="free-badge-lang" style="background:rgba(255,45,120,.12);border-color:rgba(255,45,120,.3);color:#FF2D78">Python</span>
+          <span class="free-badge-type">Próximamente</span>
+        </div>
+        <div class="free-card-title" style="opacity:.5">Guía de Pandas para principiantes</div>
+        <div class="free-card-desc" style="opacity:.4">DataFrame, filtros, agrupaciones y exportar a Excel. Todo lo que necesitas para empezar con análisis de datos en Python.</div>
+        <div class="free-soon-banner">
+          <span>🚀 En preparación — ¿te avisamos cuando salga?</span>
+          <a class="free-wa-btn" style="margin-top:10px" href="#" onclick="openWA('Hola! Quiero que me avisen cuando salga la guía gratuita de Pandas de DEVSTRUCTURE'); return false;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Avísame cuando esté listo
+          </a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -549,7 +752,7 @@
 // ══════════════════════════════════════════════
 // CONFIG — CAMBIA SOLO ESTE NÚMERO
 // ══════════════════════════════════════════════
-const WA_NUMBER = '5213328657192'; // ← pon tu número aquí (con código de país, sin + ni espacios)
+const WA_NUMBER = '5213312345678'; // ← pon tu número aquí (con código de país, sin + ni espacios)
 
 function openWA(msg) {
   const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
@@ -560,9 +763,14 @@ function openWA(msg) {
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('.bnav-item').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
-  document.getElementById('nav-' + name).classList.add('active');
+  const navLink = document.getElementById('nav-' + name);
+  if (navLink) navLink.classList.add('active');
+  const bnavItem = document.getElementById('bnav-' + name);
+  if (bnavItem) bnavItem.classList.add('active');
   if (name !== 'arcade') stopGame();
+  window.scrollTo(0, 0);
 }
 
 // ════════════════════════════════════════════
