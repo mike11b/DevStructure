@@ -3,613 +3,650 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DEVSTRUCTURE — Marketplace</title>
+  <title>DEVSTRUCTURE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:      #0D0A1A;
-      --bg2:     #120D24;
-      --bg3:     #160F2A;
-      --bg4:     #1C1335;
-      --border:  #2A1F45;
-      --border2: #3D2D60;
-      --text:    #F0EEFF;
-      --text2:   #C4B8E8;
-      --muted:   #9B8FBF;
-      --muted2:  #6B5F8F;
-      --cyan:    #00C8F0;
-      --magenta: #FF2D78;
-      --amber:   #F59E0B;
-      --green:   #25D366;
-      --font-body: 'Plus Jakarta Sans', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --bg:       #F2F2F7;
+      --bg2:      #FFFFFF;
+      --bg3:      #F2F2F7;
+      --card:     #FFFFFF;
+      --card2:    #F9F9FB;
+      --border:   rgba(0,0,0,.08);
+      --border2:  rgba(0,0,0,.12);
+      --text:     #1C1C1E;
+      --text2:    #3A3A3C;
+      --muted:    #6D6D72;
+      --muted2:   #AEAEB2;
+      --accent:   #007AFF;   /* iOS blue */
+      --cyan:     #00C8F0;
+      --magenta:  #FF2D78;
+      --amber:    #FF9500;
+      --green:    #34C759;
+      --wa:       #25D366;
+      --red:      #FF3B30;
+      --font:     'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono:'JetBrains Mono', monospace;
+      --radius:   16px;
+      --radius-sm:10px;
+      --shadow:   0 2px 12px rgba(0,0,0,.08);
+      --shadow-lg:0 8px 32px rgba(0,0,0,.12);
     }
 
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--font-body); min-height: 100vh; overflow-x: hidden; }
-
-    body::before {
-      content:''; position:fixed; inset:0;
-      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity:.025; pointer-events:none; z-index:0;
-    }
-    body::after {
-      content:''; position:fixed; inset:0;
-      background-image: linear-gradient(rgba(0,200,240,.04) 1px,transparent 1px), linear-gradient(90deg,rgba(0,200,240,.04) 1px,transparent 1px);
-      background-size:40px 40px; pointer-events:none; z-index:0;
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: var(--font); min-height: 100vh;
+      overflow-x: hidden; -webkit-font-smoothing: antialiased;
     }
 
-    /* ── NAV ── */
-    nav {
-      position:sticky; top:0; z-index:200;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:0 32px; height:60px;
-      background:rgba(13,10,26,.92); backdrop-filter:blur(20px);
-      border-bottom:1px solid var(--border);
+    /* ════════════════════════════
+       TOP NAV (desktop)
+    ════════════════════════════ */
+    .top-nav {
+      position: sticky; top: 0; z-index: 200;
+      height: 56px; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(242,242,247,.92); backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
     }
-    .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
-    .nav-logo-text { font-size:17px; font-weight:800; letter-spacing:.05em; color:var(--cyan); }
-    .nav-links { display:flex; gap:6px; }
-    .nav-links a {
-      color:var(--muted); font-size:13px; text-decoration:none; font-weight:600;
-      padding:6px 12px; border-radius:6px; transition:all .2s;
+    .nav-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+    .nav-brand-text { font-size: 16px; font-weight: 800; color: var(--text); letter-spacing: -.01em; }
+    .nav-tabs { display: flex; gap: 2px; }
+    .nav-tab {
+      color: var(--muted); font-size: 13px; font-weight: 600;
+      padding: 6px 14px; border-radius: 20px; text-decoration: none;
+      border: none; background: transparent; cursor: pointer;
+      font-family: var(--font); transition: all .18s;
     }
-    .nav-links a:hover { color:var(--text); background:var(--bg4); }
-    .nav-links a.active { color:var(--cyan); }
-    .nav-cta {
-      background:transparent; border:1px solid rgba(0,200,240,.45); color:var(--cyan);
-      font-size:13px; font-weight:700; padding:7px 18px; border-radius:6px;
-      cursor:pointer; font-family:var(--font-body); transition:all .2s;
+    .nav-tab:hover { color: var(--text); background: rgba(0,0,0,.05); }
+    .nav-tab.active { color: var(--accent); background: rgba(0,122,255,.08); }
+    .nav-wa-btn {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--wa); color: #fff; border: none;
+      font-size: 13px; font-weight: 700; padding: 8px 16px;
+      border-radius: 20px; cursor: pointer; font-family: var(--font);
+      transition: all .18s; text-decoration: none;
     }
-    .nav-cta:hover { background:rgba(0,200,240,.10); }
+    .nav-wa-btn:hover { background: #1da851; transform: scale(1.03); }
 
-    /* ── SECTIONS (pages) ── */
-    .page { display:none; position:relative; z-index:1; }
-    .page.active { display:block; }
-
-    /* ══════════════════════════════════════
-       PÁGINA: BLOG
-    ══════════════════════════════════════ */
-    .blog-hero {
-      padding:64px 24px 40px; text-align:center;
-    }
-    .section-tag {
-      display:inline-flex; align-items:center; gap:8px;
-      background:var(--bg2); border:1px solid rgba(0,200,240,.25);
-      border-radius:6px; padding:5px 14px; margin-bottom:20px;
-      font-family:var(--font-mono); font-size:11px; color:var(--cyan); letter-spacing:.1em;
-    }
-    .section-tag .dot {
-      width:7px; height:7px; border-radius:50%;
-      background:var(--magenta); box-shadow:0 0 8px var(--magenta);
-      animation:pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%,100%{opacity:1;box-shadow:0 0 10px var(--magenta);}
-      50%{opacity:.5;box-shadow:0 0 4px var(--magenta);}
-    }
-    .blog-hero h2 { font-size:clamp(28px,4vw,48px); font-weight:800; letter-spacing:-.02em; color:var(--text); }
-    .blog-hero p { color:var(--muted); font-size:16px; margin-top:12px; max-width:500px; margin-left:auto; margin-right:auto; line-height:1.6; }
-
-    .blog-grid {
-      display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-      gap:24px; padding:0 32px 80px; max-width:1200px; margin:0 auto;
-    }
-    .blog-card {
-      background:var(--bg3); border:1px solid var(--border);
-      border-radius:12px; overflow:hidden;
-      transition:transform .3s,border-color .3s,box-shadow .3s;
-      cursor:pointer; animation:fadeUp .5s both;
-    }
-    .blog-card:hover { transform:translateY(-4px); border-color:var(--border2); box-shadow:0 16px 48px rgba(0,0,0,.5); }
-    .blog-card-img {
-      height:160px; display:flex; align-items:center; justify-content:center;
-      font-size:56px; position:relative; overflow:hidden;
-    }
-    .blog-card-body { padding:20px; }
-    .blog-meta { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
-    .blog-cat {
-      font-size:11px; font-weight:700; padding:3px 9px; border-radius:4px;
-      font-family:var(--font-mono); letter-spacing:.04em; text-transform:uppercase;
-    }
-    .blog-date { font-size:12px; color:var(--muted2); }
-    .blog-card-title { font-size:16px; font-weight:700; line-height:1.35; color:var(--text); margin-bottom:8px; }
-    .blog-card-excerpt { font-size:13px; color:var(--text2); line-height:1.6; }
-    .blog-read-more {
-      display:inline-flex; align-items:center; gap:6px;
-      margin-top:16px; font-size:13px; font-weight:700; color:var(--cyan);
-      text-decoration:none; transition:gap .2s;
-    }
-    .blog-card:hover .blog-read-more { gap:10px; }
-
-    /* Blog post modal */
-    .post-modal {
-      display:none; position:fixed; inset:0; z-index:500;
-      background:rgba(0,0,0,.8); backdrop-filter:blur(8px);
-      overflow-y:auto; padding:40px 24px;
-    }
-    .post-modal.open { display:flex; align-items:flex-start; justify-content:center; }
-    .post-content {
-      background:var(--bg3); border:1px solid var(--border2);
-      border-radius:16px; max-width:720px; width:100%; padding:40px;
-      position:relative; animation:fadeUp .3s both;
-    }
-    .post-close {
-      position:absolute; top:16px; right:16px;
-      background:var(--bg4); border:1px solid var(--border2); color:var(--muted);
-      width:36px; height:36px; border-radius:8px; cursor:pointer;
-      font-size:18px; display:flex; align-items:center; justify-content:center;
-      transition:all .2s; font-family:var(--font-body);
-    }
-    .post-close:hover { color:var(--text); border-color:var(--cyan); }
-    .post-content h1 { font-size:28px; font-weight:800; color:var(--text); margin-bottom:16px; line-height:1.2; }
-    .post-content p { color:var(--text2); line-height:1.75; font-size:15px; margin-bottom:16px; }
-    .post-content h3 { color:var(--cyan); font-size:17px; font-weight:700; margin:24px 0 10px; }
-    .post-content code {
-      background:var(--bg2); border:1px solid var(--border2);
-      color:var(--magenta); font-family:var(--font-mono); font-size:13px;
-      padding:2px 7px; border-radius:4px;
-    }
-    .post-content pre {
-      background:var(--bg2); border:1px solid var(--border);
-      border-radius:8px; padding:16px; overflow-x:auto; margin:16px 0;
-    }
-    .post-content pre code { background:none; border:none; padding:0; color:#CBD5E1; }
-
-    /* ══════════════════════════════════════
-       PÁGINA: MARKETPLACE (existente)
-    ══════════════════════════════════════ */
-    .hero {
-      position:relative; z-index:1; text-align:center; padding:72px 24px 48px;
-    }
-    .hero-tag {
-      display:inline-flex; align-items:center; gap:8px;
-      background:var(--bg2); border:1px solid rgba(0,200,240,.25);
-      border-radius:6px; padding:6px 14px; margin-bottom:24px;
-    }
-    .hero-tag span { color:var(--cyan); font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; }
-    .hero h1 { font-size:clamp(38px,6vw,66px); font-weight:800; line-height:1.08; letter-spacing:-.03em; color:var(--text); }
-    .hero h1 em { font-style:normal; background:linear-gradient(90deg,var(--cyan),var(--magenta)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .hero p { color:var(--muted); font-size:17px; margin-top:16px; max-width:480px; margin-left:auto; margin-right:auto; line-height:1.65; }
-
-    .filters {
-      position:relative; z-index:1;
-      display:flex; gap:8px; justify-content:center; flex-wrap:wrap; padding:0 24px 36px;
-    }
-    .filter-btn {
-      background:transparent; border:1px solid var(--border); color:var(--muted);
-      font-family:var(--font-body); font-size:13px; font-weight:600;
-      padding:8px 18px; border-radius:6px; cursor:pointer; transition:all .2s;
-    }
-    .filter-btn:hover { border-color:rgba(0,200,240,.35); color:var(--text); }
-    .filter-btn.active { background:rgba(0,200,240,.10); border-color:rgba(0,200,240,.45); color:var(--cyan); }
-
-    .grid {
-      position:relative; z-index:1;
-      display:flex; flex-wrap:wrap; gap:24px; justify-content:center;
-      padding:0 24px 80px; max-width:1200px; margin:0 auto;
-    }
-
-    @keyframes fadeUp { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);} }
-
-    /* ── CARD ── */
-    .card {
-      width:340px; background:var(--bg3); border:1px solid var(--border);
-      border-radius:12px; overflow:hidden; cursor:pointer;
-      transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s,border-color .3s;
-      animation:fadeUp .5s both;
-    }
-    .card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.12s}
-    .card:nth-child(3){animation-delay:.19s}.card:nth-child(4){animation-delay:.26s}
-    .card:hover { transform:translateY(-5px); }
-    .card-topbar { height:3px; opacity:.6; transition:opacity .3s; }
-    .card:hover .card-topbar { opacity:1; }
-    .card-header { padding:16px 18px 12px; background:var(--bg2); }
-    .card-meta { display:flex; justify-content:space-between; align-items:flex-start; }
-    .card-badges { display:flex; align-items:center; gap:7px; }
-    .lang-badge { display:flex; align-items:center; gap:5px; border-radius:5px; padding:3px 9px; border:1px solid; font-family:var(--font-mono); font-size:12px; font-weight:700; }
-    .lang-dot { width:7px; height:7px; border-radius:50%; display:inline-block; }
-    .type-badge { background:var(--border); color:var(--muted); font-size:12px; font-weight:600; padding:3px 9px; border-radius:5px; border:1px solid var(--border2); }
-    .status-badge { font-size:11px; font-weight:700; padding:3px 9px; border-radius:5px; border:1px solid; }
-    .card-title { margin-top:14px; font-size:16px; font-weight:700; line-height:1.35; color:var(--text); }
-    .card-tagline { margin-top:5px; color:var(--text2); font-size:13px; line-height:1.55; }
-    .code-wrap { margin:0 16px; background:var(--bg2); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
-    .code-header { display:flex; align-items:center; justify-content:space-between; padding:7px 12px; background:var(--bg4); border-bottom:1px solid var(--border); }
-    .traffic-lights { display:flex; gap:5px; }
-    .tl { width:9px; height:9px; border-radius:50%; }
-    .code-filename { color:var(--muted); font-size:12px; font-family:var(--font-mono); }
-    .preview-btn { background:transparent; cursor:pointer; font-family:var(--font-mono); font-size:10px; font-weight:700; padding:3px 8px; border-radius:4px; letter-spacing:.04em; transition:all .2s; }
-    .code-body { padding:10px 0; max-height:100px; overflow:hidden; position:relative; transition:max-height .35s ease; }
-    .code-body.expanded { max-height:200px; overflow-y:auto; }
-    .code-line { display:flex; align-items:baseline; line-height:1.75; }
-    .line-num { color:#374151; font-size:12px; width:34px; text-align:right; padding-right:14px; font-family:var(--font-mono); user-select:none; flex-shrink:0; }
-    .line-code { font-size:12px; font-family:var(--font-mono); color:#CBD5E1; white-space:pre; }
-    .line-code.dim { color:#94A3B8; }
-    .code-fade { position:absolute; bottom:0; left:0; right:0; height:50px; pointer-events:none; transition:opacity .3s; }
-    .code-stats { display:flex; gap:14px; padding:8px 12px; border-top:1px solid var(--border); background:#080C14; }
-    .stat { display:flex; gap:4px; align-items:baseline; }
-    .stat-val { font-size:13px; font-weight:700; font-family:var(--font-mono); }
-    .stat-label { font-size:12px; color:var(--muted2); }
-    .tags { display:flex; flex-wrap:wrap; gap:5px; padding:12px 16px 8px; }
-    .tag { background:var(--border); color:var(--muted); font-size:12px; padding:3px 9px; border-radius:4px; border:1px solid var(--border2); font-weight:500; }
-    .card-footer { display:flex; align-items:center; justify-content:space-between; padding:12px 16px 16px; }
-    .rating-block { display:flex; flex-direction:column; gap:3px; }
-    .stars { color:var(--amber); font-size:14px; letter-spacing:-1px; }
-    .rating-val { color:var(--text); font-size:14px; font-weight:700; margin-left:4px; }
-    .review-count { color:var(--muted); font-size:12px; }
-    .price-block { display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
-    .price-row { display:flex; align-items:center; gap:7px; }
-    .discount-badge { font-size:12px; padding:2px 7px; border-radius:4px; font-weight:700; background:rgba(124,58,237,.12); color:#A78BFA; border:1px solid rgba(124,58,237,.25); }
-    .original-price { color:var(--muted2); font-size:13px; text-decoration:line-through; }
-    .price { color:var(--text); font-size:19px; font-weight:800; letter-spacing:-.02em; }
-    .price-currency { font-size:12px; color:var(--muted); font-weight:500; }
-
-    /* WhatsApp buy button */
-    .buy-btn {
-      display:inline-flex; align-items:center; gap:7px;
-      border-radius:7px; padding:9px 16px;
-      font-size:13px; font-weight:700; cursor:pointer;
-      font-family:var(--font-body); transition:all .25s ease;
-      border:1px solid; text-decoration:none;
-    }
-    .buy-btn svg { flex-shrink:0; }
-
-    /* ── WA FLOAT BUTTON ── */
-    .wa-float {
-      position:fixed; bottom:28px; right:28px; z-index:300;
-      width:56px; height:56px; border-radius:50%;
-      background:#25D366; border:none; cursor:pointer;
-      display:flex; align-items:center; justify-content:center;
-      box-shadow:0 4px 20px rgba(37,211,102,.4);
-      transition:transform .2s,box-shadow .2s;
-      text-decoration:none;
-    }
-    .wa-float:hover { transform:scale(1.1); box-shadow:0 8px 32px rgba(37,211,102,.6); }
-    .wa-float-tooltip {
-      position:absolute; right:66px; background:var(--bg3);
-      border:1px solid var(--border2); color:var(--text);
-      font-size:12px; font-weight:600; white-space:nowrap;
-      padding:6px 12px; border-radius:8px;
-      opacity:0; transform:translateX(8px); transition:all .2s;
-      pointer-events:none;
-    }
-    .wa-float:hover .wa-float-tooltip { opacity:1; transform:translateX(0); }
-
-    /* ══════════════════════════════════════
-       PÁGINA: ARCADE — SPACE INVADERS
-    ══════════════════════════════════════ */
-    .arcade-page { padding:40px 24px 80px; max-width:900px; margin:0 auto; }
-    .arcade-hero { text-align:center; margin-bottom:32px; }
-    .arcade-hero h2 { font-size:clamp(26px,4vw,42px); font-weight:800; color:var(--text); letter-spacing:-.02em; }
-    .arcade-hero h2 em { font-style:normal; background:linear-gradient(90deg,var(--magenta),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .arcade-hero p { color:var(--muted); font-size:15px; margin-top:8px; }
-
-    .arcade-wrap {
-      background:var(--bg2); border:2px solid var(--border2);
-      border-radius:16px; overflow:hidden;
-      box-shadow:0 0 60px rgba(0,200,240,.08);
-    }
-    .arcade-hud {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:12px 24px; background:var(--bg4); border-bottom:1px solid var(--border);
-    }
-    .hud-stat { text-align:center; }
-    .hud-label { font-size:10px; color:var(--muted2); font-family:var(--font-mono); letter-spacing:.1em; text-transform:uppercase; }
-    .hud-val { font-size:22px; font-weight:700; font-family:var(--font-mono); color:var(--cyan); }
-    .hud-lives { display:flex; gap:6px; }
-    .life-icon { color:var(--magenta); font-size:18px; }
-
-    #gameCanvas {
-      display:block; width:100%; max-width:800px; margin:0 auto;
-      background:#080514; cursor:none;
-      image-rendering:pixelated;
-    }
-
-    .arcade-controls {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:14px 24px; background:var(--bg4); border-top:1px solid var(--border);
-      flex-wrap:wrap; gap:12px;
-    }
-    .ctrl-hint { display:flex; gap:16px; }
-    .ctrl-key {
-      display:flex; align-items:center; gap:6px;
-      font-size:12px; color:var(--muted);
-    }
-    .kbd {
-      background:var(--bg3); border:1px solid var(--border2);
-      color:var(--text2); font-family:var(--font-mono); font-size:11px;
-      padding:3px 8px; border-radius:4px; font-weight:700;
-    }
-    .arcade-btn {
-      background:var(--magenta); border:none; color:#fff;
-      font-family:var(--font-body); font-size:13px; font-weight:800;
-      padding:10px 24px; border-radius:8px; cursor:pointer;
-      letter-spacing:.04em; transition:all .2s;
-      box-shadow:0 0 20px rgba(255,45,120,.4);
-    }
-    .arcade-btn:hover { background:#ff4d8a; box-shadow:0 0 30px rgba(255,45,120,.6); transform:scale(1.04); }
-    .arcade-btn:disabled { background:var(--muted2); box-shadow:none; transform:none; cursor:default; }
-
-    /* Game overlay */
-    .game-overlay {
-      display:none; position:absolute; inset:0;
-      background:rgba(13,10,26,.92); backdrop-filter:blur(4px);
-      flex-direction:column; align-items:center; justify-content:center;
-      gap:16px; text-align:center;
-    }
-    .game-overlay.show { display:flex; }
-    .overlay-title { font-size:40px; font-weight:800; font-family:var(--font-mono); color:var(--cyan); text-shadow:0 0 30px var(--cyan); }
-    .overlay-sub { font-size:14px; color:var(--text2); max-width:320px; line-height:1.6; }
-    .overlay-score { font-size:24px; font-weight:700; color:var(--magenta); font-family:var(--font-mono); }
-    .arcade-canvas-wrap { position:relative; }
-
-    /* ── TOUCH CONTROLS (mobile) ── */
-    .touch-controls {
-      padding: 12px 16px 16px;
-      background: var(--bg4);
-      border-top: 1px solid var(--border);
-      display: none; /* oculto en desktop */
-    }
-    .touch-row {
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    }
-    .touch-btn {
-      flex: 1; height: 60px; border-radius: 12px;
-      font-size: 22px; font-weight: 800; cursor: pointer;
-      border: 2px solid var(--border2);
-      background: var(--bg3); color: var(--text);
-      font-family: var(--font-body);
-      transition: all 0.1s;
-      user-select: none; -webkit-user-select: none;
-      touch-action: none;
-    }
-    .touch-btn:active, .touch-btn.pressed {
-      background: var(--bg2);
-      border-color: var(--cyan);
-      color: var(--cyan);
-      transform: scale(0.95);
-    }
-    .touch-fire {
-      flex: 2; background: rgba(255,45,120,0.15);
-      border-color: var(--magenta); color: var(--magenta);
-      font-size: 16px;
-    }
-    .touch-fire:active {
-      background: rgba(255,45,120,0.35);
-      box-shadow: 0 0 20px rgba(255,45,120,0.5);
-    }
-    @media (max-width: 768px) {
-      .touch-controls { display: block; }
-      .ctrl-hint { display: none; } /* esconde hints de teclado en móvil */
-    }
-
-    /* ══════════════════════════════════════
-       PÁGINA: RECURSOS GRATUITOS
-    ══════════════════════════════════════ */
-    .free-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 24px; padding: 0 32px 80px;
-      max-width: 1100px; margin: 0 auto;
-    }
-    .free-card {
-      background: var(--bg3); border: 1px solid var(--border);
-      border-radius: 14px; overflow: hidden;
-      display: flex; gap: 0;
-      transition: border-color .3s, box-shadow .3s, transform .3s;
-      animation: fadeUp .5s both;
-    }
-    .free-card:hover {
-      border-color: var(--cyan); transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(0,200,240,.2);
-    }
-    .free-card-soon { border-style: dashed; border-color: var(--border2); }
-    .free-card-soon:hover { border-color: var(--magenta); box-shadow: 0 16px 40px rgba(0,0,0,.4); }
-    .free-card-icon {
-      font-size: 48px; padding: 28px 20px;
-      background: var(--bg2);
-      display: flex; align-items: flex-start; justify-content: center;
-      min-width: 90px; border-right: 1px solid var(--border);
-    }
-    .free-card-body { padding: 22px 22px 20px; flex: 1; }
-    .free-card-badges { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; }
-    .free-badge-lang {
-      font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 5px;
-      background: rgba(0,200,240,.12); border: 1px solid rgba(0,200,240,.3);
-      color: var(--cyan); font-family: var(--font-mono);
-    }
-    .free-badge-type {
-      font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 5px;
-      background: var(--border); border: 1px solid var(--border2); color: var(--muted);
-    }
-    .free-badge-free {
-      font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 5px;
-      background: rgba(34,197,94,.15); border: 1px solid rgba(34,197,94,.35);
-      color: #22C55E; letter-spacing: .04em;
-    }
-    .free-card-title {
-      font-size: 18px; font-weight: 800; color: var(--text);
-      line-height: 1.3; margin-bottom: 8px;
-    }
-    .free-card-desc {
-      font-size: 13px; color: var(--text2); line-height: 1.65; margin-bottom: 14px;
-    }
-    .free-checklist {
-      list-style: none; margin: 0 0 18px; padding: 0;
-      display: flex; flex-direction: column; gap: 5px;
-    }
-    .free-checklist li {
-      font-size: 12.5px; color: var(--text2); padding-left: 20px; position: relative; line-height: 1.5;
-    }
-    .free-checklist li::before {
-      content: '✓'; position: absolute; left: 0;
-      color: #22C55E; font-weight: 800; font-size: 12px;
-    }
-    .free-card-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-    .free-download-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: linear-gradient(135deg, #00C8F0, #0088AA);
-      color: #0A0E1A; font-weight: 800; font-size: 13px;
-      padding: 10px 20px; border-radius: 8px; text-decoration: none;
-      border: none; cursor: pointer; font-family: var(--font-body);
-      transition: all .2s; box-shadow: 0 0 20px rgba(0,200,240,.3);
-    }
-    .free-download-btn:hover { transform: scale(1.04); box-shadow: 0 0 32px rgba(0,200,240,.5); }
-    .free-wa-btn {
-      display: inline-flex; align-items: center; gap: 7px;
-      background: transparent; border: 1px solid rgba(37,211,102,.4);
-      color: #25D366; font-weight: 700; font-size: 12px;
-      padding: 9px 16px; border-radius: 8px; text-decoration: none;
-      cursor: pointer; font-family: var(--font-body); transition: all .2s;
-    }
-    .free-wa-btn:hover { background: rgba(37,211,102,.1); border-color: #25D366; }
-    .free-soon-banner {
-      display: flex; flex-direction: column;
-      background: var(--bg2); border: 1px dashed var(--border2);
-      border-radius: 8px; padding: 14px; gap: 4px;
-      font-size: 13px; color: var(--muted);
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      position:relative; z-index:1; border-top:1px solid var(--border);
-      padding:24px; text-align:center; color:var(--muted2);
-      font-family:var(--font-mono); font-size:12px;
-    }
-
-    ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
-
-    /* ── BOTTOM NAV (móvil) ── */
+    /* ════════════════════════════
+       BOTTOM NAV (mobile)
+    ════════════════════════════ */
     .bottom-nav {
       display: none;
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 300;
-      background: rgba(13,10,26,.97); backdrop-filter: blur(20px);
-      border-top: 1px solid var(--border2);
-      height: 62px;
+      height: 64px; padding-bottom: env(safe-area-inset-bottom, 0px);
+      background: rgba(242,242,247,.96); backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-top: 1px solid var(--border);
     }
-    .bottom-nav-inner { display: flex; align-items: stretch; height: 100%; }
-    .bnav-item {
+    .bnav-inner { display: flex; height: 100%; }
+    .bnav-btn {
       flex: 1; display: flex; flex-direction: column;
       align-items: center; justify-content: center; gap: 3px;
-      color: var(--muted2); text-decoration: none;
-      font-size: 10px; font-weight: 700; letter-spacing: .02em;
-      border: none; background: transparent; cursor: pointer;
-      font-family: var(--font-body); transition: color .15s;
-      padding: 0; border-right: 1px solid var(--border);
+      background: transparent; border: none; cursor: pointer;
+      color: var(--muted2); font-size: 10px; font-weight: 600;
+      font-family: var(--font); transition: color .15s;
+      padding: 8px 0 4px;
     }
-    .bnav-item:last-child { border-right: none; }
-    .bnav-item.active { color: var(--cyan); }
-    .bnav-item:active { background: var(--bg4); }
-    .bnav-icon { font-size: 19px; line-height: 1; }
+    .bnav-btn.active { color: var(--accent); }
+    .bnav-btn:active { opacity: .6; }
+    .bnav-icon { font-size: 22px; line-height: 1; margin-bottom: 1px; }
 
-    @media(max-width:768px){
-      nav { padding: 0 14px; }
-      .nav-links { display: none; }
-      .nav-cta { font-size: 12px; padding: 6px 12px; }
-      .nav-logo-text { font-size: 14px; }
-      .bottom-nav { display: block; }
-      body { padding-bottom: 62px; }
-      .wa-float { bottom: 76px; right: 18px; width: 48px; height: 48px; }
-      .card { width: 100%; max-width: 420px; }
-      .grid { padding: 0 14px 40px; }
-      .blog-grid { padding: 0 14px 40px; grid-template-columns: 1fr; }
-      .arcade-page { padding: 20px 10px 40px; }
-      .arcade-hud { padding: 10px 14px; flex-wrap: wrap; gap: 8px; }
-      .hud-val { font-size: 18px; }
-      .arcade-controls { padding: 10px 14px; }
-      .free-grid { grid-template-columns: 1fr !important; padding: 0 14px 40px !important; }
-      .free-card { flex-direction: column !important; }
+    /* ════════════════════════════
+       PAGES
+    ════════════════════════════ */
+    .page { display: none; }
+    .page.active { display: block; }
+    .page-inner { max-width: 900px; margin: 0 auto; padding: 28px 16px 32px; }
+
+    /* Section headers — Apple style */
+    .section-title {
+      font-size: 22px; font-weight: 800; color: var(--text);
+      letter-spacing: -.02em; margin-bottom: 14px; padding: 0 4px;
     }
+    .section-subtitle {
+      font-size: 15px; color: var(--muted); margin-top: -10px;
+      margin-bottom: 16px; padding: 0 4px; line-height: 1.5;
+    }
+
+    /* ─── HERO banner ─── */
+    .hero-banner {
+      background: linear-gradient(135deg, #1C1C1E 0%, #2C1654 60%, #0A1628 100%);
+      border-radius: var(--radius); padding: 32px 24px 28px;
+      margin-bottom: 28px; position: relative; overflow: hidden;
+    }
+    .hero-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 50%, rgba(0,200,240,.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(255,45,120,.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.1); border-radius: 20px;
+      padding: 4px 12px; margin-bottom: 14px;
+      font-size: 11px; font-weight: 700; color: var(--cyan);
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+    .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--magenta);
+      box-shadow: 0 0 8px var(--magenta); animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0%,100%{ opacity:1; box-shadow:0 0 8px var(--magenta); }
+      50%{ opacity:.5; box-shadow:0 0 3px var(--magenta); }
+    }
+    .hero-banner h1 {
+      font-size: clamp(26px, 5vw, 40px); font-weight: 900;
+      line-height: 1.1; letter-spacing: -.03em; color: #fff;
+      margin-bottom: 10px;
+    }
+    .hero-banner h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--cyan), var(--magenta));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-banner p { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.6; max-width: 380px; }
+
+    /* ════════════════════════════
+       SHOP PAGE
+    ════════════════════════════ */
+    .filters-row {
+      display: flex; gap: 8px; overflow-x: auto; padding: 0 0 4px;
+      scrollbar-width: none; margin-bottom: 20px;
+    }
+    .filters-row::-webkit-scrollbar { display: none; }
+    .filter-pill {
+      flex-shrink: 0; background: var(--card); border: 1px solid var(--border);
+      color: var(--muted); font-size: 13px; font-weight: 600;
+      padding: 7px 16px; border-radius: 20px; cursor: pointer;
+      font-family: var(--font); transition: all .18s; white-space: nowrap;
+    }
+    .filter-pill.active {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+    .filter-pill:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+
+    /* Product list — iOS-style grouped list */
+    .product-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .product-card {
+      background: var(--card); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+      animation: fadeUp .4s both;
+    }
+    .product-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)} }
+
+    .product-card-top {
+      display: flex; align-items: stretch; gap: 0;
+    }
+    .product-accent-bar { width: 4px; flex-shrink: 0; }
+    .product-main { flex: 1; padding: 16px 16px 14px; }
+    .product-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 6px; }
+    .product-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+    .p-badge {
+      font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px;
+      font-family: var(--font-mono); letter-spacing: .03em;
+    }
+    .p-badge-status {
+      font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px;
+    }
+    .product-price-top { text-align: right; flex-shrink: 0; }
+    .product-price { font-size: 18px; font-weight: 800; color: var(--text); letter-spacing: -.02em; }
+    .product-price-orig { font-size: 11px; color: var(--muted2); text-decoration: line-through; }
+    .product-price-cur { font-size: 10px; color: var(--muted); font-weight: 500; }
+
+    .product-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 3px; line-height: 1.3; }
+    .product-tagline { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
+
+    /* Code preview */
+    .code-preview {
+      background: #1C1C1E; border-radius: var(--radius-sm);
+      overflow: hidden; margin-bottom: 12px;
+    }
+    .code-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 7px 12px; background: #2C2C2E;
+    }
+    .code-dots { display: flex; gap: 5px; }
+    .code-dot { width: 9px; height: 9px; border-radius: 50%; }
+    .code-fname { font-size: 11px; color: #8E8E93; font-family: var(--font-mono); }
+    .code-toggle {
+      background: transparent; border: 1px solid rgba(255,255,255,.15);
+      color: #8E8E93; font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 4px; cursor: pointer;
+      font-family: var(--font-mono); transition: all .2s;
+    }
+    .code-toggle:hover { color: var(--cyan); border-color: var(--cyan); }
+    .code-lines {
+      padding: 10px 0; max-height: 90px; overflow: hidden;
+      position: relative; transition: max-height .3s ease;
+    }
+    .code-lines.open { max-height: 200px; overflow-y: auto; }
+    .code-line { display: flex; line-height: 1.7; }
+    .ln { color: #3A3A3C; font-size: 11px; width: 32px; text-align: right;
+      padding-right: 12px; font-family: var(--font-mono); user-select: none; }
+    .lc { font-size: 11px; font-family: var(--font-mono); color: #D1D1D6; white-space: pre; }
+    .lc.k { color: #BF5AF2; } .lc.f { color: #0A84FF; }
+    .lc.s { color: #FF9F0A; } .lc.c { color: #98989D; }
+    .code-fade-out {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 40px;
+      background: linear-gradient(transparent, #1C1C1E); pointer-events: none;
+      transition: opacity .3s;
+    }
+    .code-stats-row {
+      display: flex; gap: 16px; padding: 7px 14px;
+      background: #141414; border-top: 1px solid #2C2C2E;
+    }
+    .cs { font-size: 11px; font-family: var(--font-mono); color: #8E8E93; }
+    .cs b { color: #D1D1D6; }
+
+    /* Tags */
+    .product-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+    .p-tag {
+      background: var(--bg3); color: var(--muted);
+      font-size: 11px; font-weight: 600; padding: 3px 9px;
+      border-radius: 6px; border: 1px solid var(--border);
+    }
+
+    /* Footer row */
+    .product-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; background: var(--card2);
+      border-top: 1px solid var(--border);
+    }
+    .product-rating { display: flex; flex-direction: column; gap: 1px; }
+    .stars-row { display: flex; align-items: center; gap: 4px; }
+    .stars { color: var(--amber); font-size: 13px; letter-spacing: -1px; }
+    .rating-num { font-size: 13px; font-weight: 700; color: var(--text); }
+    .rating-meta { font-size: 11px; color: var(--muted); }
+
+    .buy-wa-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--wa); color: #fff;
+      font-size: 13px; font-weight: 700; padding: 10px 18px;
+      border-radius: 22px; text-decoration: none; border: none;
+      font-family: var(--font); cursor: pointer;
+      transition: all .2s; box-shadow: 0 2px 12px rgba(37,211,102,.3);
+    }
+    .buy-wa-btn:hover { background: #1da851; transform: scale(1.04); }
+
+    /* ════════════════════════════
+       BLOG PAGE
+    ════════════════════════════ */
+    .blog-list { display: flex; flex-direction: column; gap: 12px; }
+    .blog-card {
+      background: var(--card); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden; cursor: pointer;
+      display: flex; align-items: stretch;
+      transition: transform .2s, box-shadow .2s;
+      animation: fadeUp .4s both;
+    }
+    .blog-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .blog-card-emoji {
+      font-size: 36px; padding: 20px 18px; background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      min-width: 76px; border-right: 1px solid var(--border);
+    }
+    .blog-card-body { padding: 16px; flex: 1; }
+    .blog-card-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .blog-cat-pill {
+      font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 6px;
+      letter-spacing: .03em;
+    }
+    .blog-date { font-size: 11px; color: var(--muted); }
+    .blog-card-title { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.35; margin-bottom: 5px; }
+    .blog-card-excerpt { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .blog-card-arrow {
+      display: flex; align-items: center; padding: 0 16px 0 8px;
+      color: var(--muted2); font-size: 18px; font-weight: 300;
+    }
+
+    /* Blog modal */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,.5); backdrop-filter: blur(8px);
+      overflow-y: auto; padding: 24px 16px;
+      align-items: flex-start; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--card); border-radius: 20px;
+      max-width: 680px; width: 100%; padding: 28px;
+      position: relative; animation: fadeUp .25s both;
+      box-shadow: 0 24px 80px rgba(0,0,0,.2);
+    }
+    .modal-close {
+      position: absolute; top: 14px; right: 14px;
+      background: var(--bg3); border: none; color: var(--muted);
+      width: 30px; height: 30px; border-radius: 50%;
+      cursor: pointer; font-size: 16px; display: flex; align-items: center;
+      justify-content: center; font-family: var(--font); transition: all .18s;
+    }
+    .modal-close:hover { background: var(--border2); color: var(--text); }
+    .modal-box h1 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 16px; line-height: 1.25; }
+    .modal-box p { font-size: 14px; color: var(--text2); line-height: 1.75; margin-bottom: 14px; }
+    .modal-box h3 { font-size: 15px; font-weight: 700; color: var(--accent); margin: 20px 0 8px; }
+    .modal-box code {
+      background: var(--bg3); color: var(--magenta);
+      font-family: var(--font-mono); font-size: 12px; padding: 2px 6px; border-radius: 5px;
+    }
+    .modal-box pre {
+      background: #1C1C1E; border-radius: var(--radius-sm); padding: 14px;
+      overflow-x: auto; margin: 12px 0;
+    }
+    .modal-box pre code { background: none; color: #D1D1D6; padding: 0; font-size: 12px; }
+
+    /* ════════════════════════════
+       FREE RESOURCES PAGE
+    ════════════════════════════ */
+    .free-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .free-card {
+      background: var(--card); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
+      animation: fadeUp .4s both;
+    }
+    .free-card-hero {
+      padding: 20px; display: flex; gap: 16px; align-items: flex-start;
+    }
+    .free-icon-wrap {
+      width: 60px; height: 60px; border-radius: 14px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 30px;
+    }
+    .free-card-info { flex: 1; }
+    .free-card-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 7px; }
+    .free-badge {
+      font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 6px;
+    }
+    .free-badge-free { background: rgba(52,199,89,.12); color: var(--green); border: 1px solid rgba(52,199,89,.3); }
+    .free-badge-lang { background: rgba(0,122,255,.1); color: var(--accent); border: 1px solid rgba(0,122,255,.2); font-family: var(--font-mono); }
+    .free-badge-type { background: var(--bg3); color: var(--muted); border: 1px solid var(--border); }
+    .free-badge-soon { background: rgba(255,149,0,.12); color: var(--amber); border: 1px solid rgba(255,149,0,.3); }
+    .free-card-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .free-card-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+    .free-checklist { list-style: none; padding: 0 20px 16px; display: flex; flex-direction: column; gap: 7px; }
+    .free-checklist li {
+      display: flex; gap: 8px; align-items: baseline;
+      font-size: 13px; color: var(--text2); line-height: 1.4;
+    }
+    .free-checklist li::before {
+      content: '✓'; color: var(--green); font-weight: 800;
+      font-size: 12px; flex-shrink: 0; margin-top: 1px;
+    }
+
+    .free-card-footer {
+      padding: 14px 20px; background: var(--card2);
+      border-top: 1px solid var(--border);
+      display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    }
+    .free-dl-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--accent); color: #fff;
+      font-size: 13px; font-weight: 700; padding: 10px 20px;
+      border-radius: 22px; text-decoration: none;
+      transition: all .2s; box-shadow: 0 2px 12px rgba(0,122,255,.3);
+    }
+    .free-dl-btn:hover { background: #0066dd; transform: scale(1.03); }
+    .free-wa-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: transparent; border: 1.5px solid rgba(37,211,102,.4);
+      color: var(--wa); font-size: 13px; font-weight: 700;
+      padding: 9px 16px; border-radius: 22px; text-decoration: none;
+      cursor: pointer; font-family: var(--font); transition: all .18s;
+    }
+    .free-wa-btn:hover { background: rgba(37,211,102,.08); }
+
+    .free-soon-card { border: 2px dashed var(--border2); box-shadow: none; opacity: .75; }
+    .free-soon-footer {
+      padding: 14px 20px; background: var(--bg3);
+      border-top: 1px solid var(--border);
+      font-size: 13px; color: var(--muted);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+
+    /* ════════════════════════════
+       ARCADE PAGE
+    ════════════════════════════ */
+    .arcade-wrap-outer {
+      background: var(--card); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    .arcade-hud {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 20px; background: #1C1C1E;
+    }
+    .hud-stat { text-align: center; }
+    .hud-label { font-size: 9px; color: #636366; font-family: var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+    .hud-val { font-size: 20px; font-weight: 700; font-family: var(--font-mono); color: var(--cyan); }
+    .hud-lives { display: flex; gap: 5px; }
+    .life-icon { color: var(--red); font-size: 17px; }
+
+    #gameCanvas {
+      display: block; width: 100%; background: #080514;
+      cursor: none; image-rendering: pixelated;
+    }
+    .arcade-canvas-wrap { position: relative; }
+
+    .game-overlay {
+      display: none; position: absolute; inset: 0;
+      background: rgba(0,0,0,.88); backdrop-filter: blur(4px);
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 14px; text-align: center; padding: 24px;
+    }
+    .game-overlay.show { display: flex; }
+    .overlay-title { font-size: 36px; font-weight: 900; font-family: var(--font-mono); color: var(--cyan); text-shadow: 0 0 30px var(--cyan); }
+    .overlay-sub { font-size: 13px; color: rgba(255,255,255,.6); max-width: 300px; line-height: 1.6; }
+    .overlay-score { font-size: 22px; font-weight: 700; color: var(--magenta); font-family: var(--font-mono); }
+    .start-btn {
+      background: var(--magenta); border: none; color: #fff;
+      font-size: 14px; font-weight: 800; padding: 12px 28px;
+      border-radius: 22px; cursor: pointer; font-family: var(--font);
+      box-shadow: 0 0 24px rgba(255,45,120,.5); transition: all .2s;
+    }
+    .start-btn:hover { transform: scale(1.05); }
+
+    .arcade-controls {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 20px; background: #2C2C2E; flex-wrap: wrap; gap: 10px;
+    }
+    .ctrl-hints { display: flex; gap: 14px; flex-wrap: wrap; }
+    .ctrl-key { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #8E8E93; }
+    .kbd {
+      background: #3A3A3C; color: #D1D1D6;
+      font-family: var(--font-mono); font-size: 10px;
+      padding: 3px 7px; border-radius: 5px; font-weight: 700;
+    }
+    .restart-btn {
+      background: var(--magenta); border: none; color: #fff;
+      font-size: 12px; font-weight: 800; padding: 9px 20px;
+      border-radius: 20px; cursor: pointer; font-family: var(--font); transition: all .18s;
+    }
+    .restart-btn:disabled { background: #3A3A3C; color: #636366; box-shadow: none; cursor: default; }
+    .restart-btn:not(:disabled):hover { transform: scale(1.04); }
+
+    /* Touch controls */
+    .touch-controls {
+      display: none; padding: 12px 16px 16px;
+      background: #2C2C2E;
+    }
+    .touch-row { display: flex; gap: 10px; align-items: center; }
+    .touch-btn {
+      flex: 1; height: 58px; border-radius: 12px;
+      font-size: 22px; font-weight: 800; cursor: pointer;
+      border: 1.5px solid #3A3A3C; background: #3A3A3C; color: #D1D1D6;
+      font-family: var(--font); transition: all .1s; user-select: none;
+      -webkit-user-select: none; touch-action: none;
+    }
+    .touch-btn:active { background: #48484A; transform: scale(.96); }
+    .touch-fire {
+      flex: 2; background: rgba(255,45,120,.2);
+      border-color: var(--magenta); color: var(--magenta); font-size: 15px;
+    }
+    .touch-fire:active { background: rgba(255,45,120,.4); }
+
+    /* ════════════════════════════
+       WA FLOAT
+    ════════════════════════════ */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 22px; z-index: 250;
+      width: 54px; height: 54px; border-radius: 50%;
+      background: var(--wa); display: flex; align-items: center;
+      justify-content: center; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37,211,102,.4);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .wa-float:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,.6); }
+    .wa-tooltip {
+      position: absolute; right: 62px; background: var(--text);
+      color: var(--bg2); font-size: 12px; font-weight: 600;
+      white-space: nowrap; padding: 6px 12px; border-radius: 10px;
+      opacity: 0; transform: translateX(6px); transition: all .18s; pointer-events: none;
+    }
+    .wa-float:hover .wa-tooltip { opacity: 1; transform: translateX(0); }
+
+    /* ════════════════════════════
+       RESPONSIVE
+    ════════════════════════════ */
+    @media(max-width: 768px) {
+      .top-nav { padding: 0 16px; }
+      .nav-tabs { display: none; }
+      .bottom-nav { display: block; }
+      body { padding-bottom: 64px; }
+      .wa-float { bottom: 76px; right: 14px; width: 48px; height: 48px; }
+      .touch-controls { display: block; }
+      .ctrl-hints .ctrl-key { display: none; }
+      .page-inner { padding: 20px 12px 24px; }
+      .blog-card-arrow { display: none; }
+      .free-card-hero { padding: 16px; }
+    }
+    @media(max-width: 480px) {
+      .product-header { flex-direction: column; gap: 6px; }
+      .product-price-top { text-align: left; }
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--muted2); border-radius: 2px; }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="#" onclick="showPage('shop')">
-    <svg width="34" height="34" viewBox="0 0 100 100" fill="none">
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <a class="nav-brand" href="#" onclick="showPage('shop');return false;">
+    <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
       <polygon points="50,8 88,52 74,52 50,24 26,52 12,52" fill="#FF2D78"/>
-      <polygon points="50,30 76,58 65,58 50,42 35,58 24,58" fill="#00C8F0"/>
+      <polygon points="50,30 76,58 65,58 50,42 35,58 24,58" fill="#007AFF"/>
       <rect x="30" y="62" width="40" height="5" rx="2" fill="#FF2D78"/>
-      <rect x="36" y="67" width="3" height="8" rx="1" fill="#00C8F0"/>
-      <rect x="44" y="67" width="3" height="10" rx="1" fill="#00C8F0"/>
-      <rect x="53" y="67" width="3" height="8" rx="1" fill="#00C8F0"/>
-      <rect x="61" y="67" width="3" height="6" rx="1" fill="#00C8F0"/>
+      <rect x="36" y="67" width="3" height="8" rx="1" fill="#007AFF"/>
+      <rect x="44" y="67" width="3" height="10" rx="1" fill="#007AFF"/>
+      <rect x="53" y="67" width="3" height="8" rx="1" fill="#007AFF"/>
+      <rect x="61" y="67" width="3" height="6" rx="1" fill="#007AFF"/>
       <circle cx="36" cy="77" r="2.5" fill="#FF2D78"/>
       <circle cx="56" cy="79" r="2.5" fill="#FF2D78"/>
     </svg>
-    <span class="nav-logo-text">DEVSTRUCTURE</span>
+    <span class="nav-brand-text">DEVSTRUCTURE</span>
   </a>
-  <div class="nav-links">
-    <a href="#" onclick="showPage('blog')" id="nav-blog">Blog</a>
-    <a href="#" onclick="showPage('shop')" id="nav-shop" class="active">Tienda</a>
-    <a href="#" onclick="showPage('free')" id="nav-free">Gratis</a>
-    <a href="#" onclick="showPage('arcade')" id="nav-arcade">🕹 Arcade</a>
+  <div class="nav-tabs">
+    <button class="nav-tab" id="nav-blog" onclick="showPage('blog')">Blog</button>
+    <button class="nav-tab active" id="nav-shop" onclick="showPage('shop')">Tienda</button>
+    <button class="nav-tab" id="nav-free" onclick="showPage('free')">Gratis</button>
+    <button class="nav-tab" id="nav-arcade" onclick="showPage('arcade')">🕹 Arcade</button>
   </div>
-  <button class="nav-cta" onclick="openWA('Hola! Quiero más información sobre DEVSTRUCTURE')">
-    Contactar WA
-  </button>
+  <a class="nav-wa-btn" href="#" id="nav-wa-link" onclick="openWA('Hola! Quiero información sobre DEVSTRUCTURE 👋');return false;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Contactar
+  </a>
 </nav>
 
-<!-- BOTTOM NAV (móvil) -->
+<!-- BOTTOM NAV (mobile) -->
 <nav class="bottom-nav">
-  <div class="bottom-nav-inner">
-    <button class="bnav-item" id="bnav-blog" onclick="showPage('blog')">
+  <div class="bnav-inner">
+    <button class="bnav-btn" id="bnav-blog" onclick="showPage('blog')">
       <span class="bnav-icon">📰</span>Blog
     </button>
-    <button class="bnav-item active" id="bnav-shop" onclick="showPage('shop')">
+    <button class="bnav-btn active" id="bnav-shop" onclick="showPage('shop')">
       <span class="bnav-icon">🛒</span>Tienda
     </button>
-    <button class="bnav-item" id="bnav-free" onclick="showPage('free')">
+    <button class="bnav-btn" id="bnav-free" onclick="showPage('free')">
       <span class="bnav-icon">🎁</span>Gratis
     </button>
-    <button class="bnav-item" id="bnav-arcade" onclick="showPage('arcade')">
+    <button class="bnav-btn" id="bnav-arcade" onclick="showPage('arcade')">
       <span class="bnav-icon">🕹</span>Arcade
     </button>
   </div>
 </nav>
 
-<!-- ══ PAGE: BLOG ══ -->
+<!-- ══════════════════ PAGE: TIENDA ══════════════════ -->
+<div class="page active" id="page-shop">
+  <div class="page-inner">
+
+    <div class="hero-banner">
+      <div class="hero-tag"><span class="hero-dot"></span>MARKETPLACE v1.0</div>
+      <h1>Código que<br><em>trabaja por ti</em></h1>
+      <p>Macros de automatización y manuales técnicos para analistas, contadores y desarrolladores.</p>
+    </div>
+
+    <p class="section-title">Seleccionado para ti</p>
+
+    <div class="filters-row" id="filters-row">
+      <button class="filter-pill active" data-filter="todos">Todos</button>
+      <button class="filter-pill" data-filter="VBA">VBA</button>
+      <button class="filter-pill" data-filter="Python">Python</button>
+      <button class="filter-pill" data-filter="JavaScript">JavaScript</button>
+      <button class="filter-pill" data-filter="Manual">Manuales</button>
+    </div>
+
+    <div class="product-list" id="product-list"></div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE: BLOG ══════════════════ -->
 <div class="page" id="page-blog">
-  <div class="blog-hero">
-    <div class="section-tag"><span class="dot"></span>NOTICIAS Y NOVEDADES</div>
-    <h2>Blog <em>DEVSTRUCTURE</em></h2>
-    <p>Lanzamientos, actualizaciones y contenido técnico del ecosistema DEVSTRUCTURE.</p>
-  </div>
-  <div class="blog-grid" id="blog-grid"></div>
-</div>
-
-<!-- Blog post modal -->
-<div class="post-modal" id="post-modal">
-  <div class="post-content" id="post-body">
-    <button class="post-close" onclick="closePost()">✕</button>
+  <div class="page-inner">
+    <p class="section-title">Blog DEVSTRUCTURE</p>
+    <p class="section-subtitle">Lanzamientos, actualizaciones y contenido técnico.</p>
+    <div class="blog-list" id="blog-list"></div>
   </div>
 </div>
 
-<!-- ══ PAGE: RECURSOS GRATUITOS ══ -->
+<!-- Blog modal -->
+<div class="modal-overlay" id="post-modal">
+  <div class="modal-box" id="post-body">
+    <button class="modal-close" onclick="closePost()">✕</button>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE: GRATIS ══════════════════ -->
 <div class="page" id="page-free">
-  <div class="blog-hero">
-    <div class="section-tag"><span class="dot"></span>SIN COSTO · DESCARGA DIRECTA</div>
-    <h2>Recursos <em style="background:linear-gradient(90deg,#00C8F0,#FF2D78);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:normal">Gratuitos</em></h2>
-    <p>Material educativo 100% gratis de DEVSTRUCTURE. Descárgalo, compártelo y aprende.</p>
-  </div>
+  <div class="page-inner">
+    <p class="section-title">Recursos Gratuitos</p>
+    <p class="section-subtitle">Material educativo 100% gratis. Descárgalo y compártelo.</p>
 
-  <div class="free-grid" id="free-grid">
+    <div class="free-list">
 
-    <!-- Card: Manual Tablas Dinámicas -->
-    <div class="free-card">
-      <div class="free-card-icon">📊</div>
-      <div class="free-card-body">
-        <div class="free-card-badges">
-          <span class="free-badge-lang">Excel</span>
-          <span class="free-badge-type">PDF · 13 páginas</span>
-          <span class="free-badge-free">GRATIS</span>
+      <!-- Manual Tablas Dinámicas -->
+      <div class="free-card">
+        <div class="free-card-hero">
+          <div class="free-icon-wrap" style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB)">📊</div>
+          <div class="free-card-info">
+            <div class="free-card-badges">
+              <span class="free-badge free-badge-free">GRATIS</span>
+              <span class="free-badge free-badge-lang">Excel</span>
+              <span class="free-badge free-badge-type">PDF · 13 págs</span>
+            </div>
+            <div class="free-card-title">Manual de Tablas Dinámicas</div>
+            <div class="free-card-desc">De cero a tu primer reporte dinámico en menos de 30 minutos. Con casos prácticos reales.</div>
+          </div>
         </div>
-        <div class="free-card-title">Manual de Tablas Dinámicas</div>
-        <div class="free-card-desc">De cero a tu primer reporte dinámico en menos de 30 minutos. Incluye casos prácticos reales, errores comunes y atajos de teclado.</div>
         <ul class="free-checklist">
           <li>Qué son las Tablas Dinámicas y para qué sirven</li>
           <li>Cómo preparar tus datos correctamente</li>
@@ -617,107 +654,67 @@
           <li>Agrupar, ordenar, Slicers y formato profesional</li>
           <li>3 casos prácticos reales con configuración paso a paso</li>
         </ul>
-        <div class="free-card-actions">
-          <a class="free-download-btn" href="Manual_Tablas_Dinamicas_DEVSTRUCTURE.pdf" download>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Descargar PDF gratis
+        <div class="free-card-footer">
+          <a class="free-dl-btn" href="Manual_Tablas_Dinamicas_DEVSTRUCTURE.pdf" download>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Descargar gratis
           </a>
-          <a class="free-wa-btn" href="#" onclick="openWA('Hola! Vi el manual gratuito de Tablas Dinámicas en DEVSTRUCTURE. ¿Tienen más recursos o productos de Excel?'); return false;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Preguntar por WhatsApp
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card: Próximo recurso (teaser) -->
-    <div class="free-card free-card-soon">
-      <div class="free-card-icon" style="opacity:.4">🔒</div>
-      <div class="free-card-body">
-        <div class="free-card-badges">
-          <span class="free-badge-lang" style="background:rgba(255,45,120,.12);border-color:rgba(255,45,120,.3);color:#FF2D78">Python</span>
-          <span class="free-badge-type">Próximamente</span>
-        </div>
-        <div class="free-card-title" style="opacity:.5">Guía de Pandas para principiantes</div>
-        <div class="free-card-desc" style="opacity:.4">DataFrame, filtros, agrupaciones y exportar a Excel. Todo lo que necesitas para empezar con análisis de datos en Python.</div>
-        <div class="free-soon-banner">
-          <span>🚀 En preparación — ¿te avisamos cuando salga?</span>
-          <a class="free-wa-btn" style="margin-top:10px" href="#" onclick="openWA('Hola! Quiero que me avisen cuando salga la guía gratuita de Pandas de DEVSTRUCTURE'); return false;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Avísame cuando esté listo
+          <a class="free-wa-btn" href="#" onclick="openWA('Hola! Vi el manual de Tablas Dinámicas en DEVSTRUCTURE. ¿Tienen más recursos?');return false;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Preguntar por WA
           </a>
         </div>
       </div>
-    </div>
 
-  </div>
-</div>
-
-<!-- ══ PAGE: SHOP ══ -->
-<div class="page active" id="page-shop">
-  <section class="hero">
-    <div class="hero-tag">
-      <span class="dot" style="background:var(--magenta);box-shadow:0 0 10px var(--magenta);animation:pulse 2s infinite;width:7px;height:7px;border-radius:50%;display:inline-block;"></span>
-      <span>DEVSTRUCTURE — MARKETPLACE v1.0</span>
-    </div>
-    <h1>Código que<br><em>trabaja por ti</em></h1>
-    <p>Macros de automatización y manuales técnicos para analistas, contadores y desarrolladores.</p>
-  </section>
-
-  <div class="filters">
-    <button class="filter-btn active" data-filter="todos">Todos</button>
-    <button class="filter-btn" data-filter="VBA">VBA</button>
-    <button class="filter-btn" data-filter="Python">Python</button>
-    <button class="filter-btn" data-filter="JavaScript">JavaScript</button>
-    <button class="filter-btn" data-filter="Manual">Manuales</button>
-  </div>
-
-  <div class="grid" id="grid"></div>
-</div>
-
-<!-- ══ PAGE: ARCADE ══ -->
-<div class="page" id="page-arcade">
-  <div class="arcade-page">
-    <div class="arcade-hero">
-      <div class="section-tag"><span class="dot"></span>MINI JUEGO</div>
-      <h2>Bug <em>Invaders</em></h2>
-      <p>Destruye los bugs antes de que lleguen a tu código. ¡Cada bug eliminado = 1 línea de código limpio!</p>
-    </div>
-
-    <div class="arcade-wrap">
-      <div class="arcade-hud">
-        <div class="hud-stat">
-          <div class="hud-label">Score</div>
-          <div class="hud-val" id="hud-score">0</div>
-        </div>
-        <div class="hud-stat">
-          <div class="hud-label">Nivel</div>
-          <div class="hud-val" id="hud-level">1</div>
-        </div>
-        <div class="hud-stat">
-          <div class="hud-label">Vidas</div>
-          <div class="hud-lives" id="hud-lives">
-            <span class="life-icon">♥</span>
-            <span class="life-icon">♥</span>
-            <span class="life-icon">♥</span>
+      <!-- Próximo recurso -->
+      <div class="free-card free-soon-card">
+        <div class="free-card-hero">
+          <div class="free-icon-wrap" style="background:#F2F2F7;opacity:.6">🐍</div>
+          <div class="free-card-info">
+            <div class="free-card-badges">
+              <span class="free-badge free-badge-soon">PRÓXIMAMENTE</span>
+              <span class="free-badge free-badge-lang">Python</span>
+            </div>
+            <div class="free-card-title" style="opacity:.5">Guía de Pandas para principiantes</div>
+            <div class="free-card-desc" style="opacity:.4">DataFrame, filtros, agrupaciones y exportar a Excel desde cero.</div>
           </div>
         </div>
-        <div class="hud-stat">
-          <div class="hud-label">Hi-Score</div>
-          <div class="hud-val" id="hud-hi">0</div>
+        <div class="free-soon-footer">
+          <span>🚀 En preparación — ¿te avisamos cuando esté listo?</span>
+          <a class="free-wa-btn" style="width:fit-content" href="#" onclick="openWA('Hola! Quiero que me avisen cuando salga la guía gratuita de Pandas de DEVSTRUCTURE');return false;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Avísame cuando esté
+          </a>
         </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE: ARCADE ══════════════════ -->
+<div class="page" id="page-arcade">
+  <div class="page-inner">
+    <p class="section-title">Bug Invaders 🕹</p>
+    <p class="section-subtitle">Destruye los bugs antes de que lleguen a tu código.</p>
+
+    <div class="arcade-wrap-outer">
+      <div class="arcade-hud">
+        <div class="hud-stat"><div class="hud-label">Score</div><div class="hud-val" id="hud-score">0</div></div>
+        <div class="hud-stat"><div class="hud-label">Nivel</div><div class="hud-val" id="hud-level">1</div></div>
+        <div class="hud-stat"><div class="hud-label">Vidas</div><div class="hud-lives" id="hud-lives"><span class="life-icon">♥</span><span class="life-icon">♥</span><span class="life-icon">♥</span></div></div>
+        <div class="hud-stat"><div class="hud-label">Hi-Score</div><div class="hud-val" id="hud-hi">0</div></div>
       </div>
 
       <div class="arcade-canvas-wrap">
         <canvas id="gameCanvas" width="800" height="480"></canvas>
         <div class="game-overlay show" id="game-overlay">
           <div class="overlay-title">BUG INVADERS</div>
-          <div class="overlay-sub">Elimina todos los bugs antes de que destruyan tu código. Usa ← → para moverte y ESPACIO para disparar.</div>
-          <button class="arcade-btn" onclick="startGame()">▶ INICIAR JUEGO</button>
+          <div class="overlay-sub">Elimina todos los bugs antes de que destruyan tu código.</div>
+          <button class="start-btn" onclick="startGame()">▶ INICIAR JUEGO</button>
         </div>
       </div>
 
-      <!-- Botones táctiles móvil -->
       <div class="touch-controls" id="touch-controls">
         <div class="touch-row">
           <button class="touch-btn" id="btn-left">◀</button>
@@ -727,55 +724,47 @@
       </div>
 
       <div class="arcade-controls">
-        <div class="ctrl-hint">
+        <div class="ctrl-hints">
           <div class="ctrl-key"><span class="kbd">←</span><span class="kbd">→</span> Mover</div>
           <div class="ctrl-key"><span class="kbd">SPACE</span> Disparar</div>
           <div class="ctrl-key"><span class="kbd">P</span> Pausa</div>
         </div>
-        <button class="arcade-btn" id="restart-btn" onclick="startGame()" disabled>↺ REINICIAR</button>
+        <button class="restart-btn" id="restart-btn" onclick="startGame()" disabled>↺ Reiniciar</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- WhatsApp float button -->
-<a class="wa-float" id="wa-float" href="#" target="_blank" aria-label="Contactar por WhatsApp">
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
-  <span class="wa-float-tooltip">¿Dudas? Escríbenos</span>
+<!-- WA Float -->
+<a class="wa-float" id="wa-float" href="#" target="_blank">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span class="wa-tooltip">¿Dudas? Escríbenos</span>
 </a>
 
-<footer>// DEVSTRUCTURE · Todos los derechos reservados 2026</footer>
-
 <script>
-// ══════════════════════════════════════════════
-// CONFIG — CAMBIA SOLO ESTE NÚMERO
-// ══════════════════════════════════════════════
-const WA_NUMBER = '5213312345678'; // ← pon tu número aquí (con código de país, sin + ni espacios)
+// ══ CONFIG ══
+const WA_NUMBER = '5213312345678'; // ← cambia por tu número
 
 function openWA(msg) {
-  const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
-  window.open(url, '_blank');
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
-// ── NAV ────────────────────────────────────────
+// ══ NAV ══
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-  document.querySelectorAll('.bnav-item').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.nav-tab, .bnav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
-  const navLink = document.getElementById('nav-' + name);
-  if (navLink) navLink.classList.add('active');
-  const bnavItem = document.getElementById('bnav-' + name);
-  if (bnavItem) bnavItem.classList.add('active');
+  ['nav-' + name, 'bnav-' + name].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('active');
+  });
   if (name !== 'arcade') stopGame();
   window.scrollTo(0, 0);
 }
 
-// ════════════════════════════════════════════
-// DATOS
-// ════════════════════════════════════════════
+// ══════════════════════════════════════════
+// DATOS PRODUCTOS
+// ══════════════════════════════════════════
 const PRODUCTS = [
   {
     id:1, language:"VBA", type:"Macro", level:"Intermedio",
@@ -784,9 +773,22 @@ const PRODUCTS = [
     price:349, originalPrice:499,
     rating:4.9, reviews:128, sales:847, lines:1240, files:3,
     tags:["Excel","VBA","Facturas","Automatización"],
-    badge:"Best Seller", badgeColor:"#F59E0B",
-    gradient:["#00C8F0","#0088AA"], icon:"⚡", filename:"main.bas",
-    code:["Sub GenerateInvoices()","  Dim ws As Worksheet","  Dim lastRow As Long","  Dim invoiceNum As Integer","  ","  Set ws = ThisWorkbook.Sheets(\"Data\")","  lastRow = ws.Cells(ws.Rows.Count,1).End(xlUp).Row","  invoiceNum = GetNextInvoiceNumber()"]
+    badge:"Best Seller", badgeColor:"#FF9500",
+    accentColor:"#007AFF", dotColor:"#0A84FF",
+    icon:"⚡", filename:"main.bas",
+    code:[
+      {t:"k",v:"Sub "},{t:"f",v:"GenerateInvoices"},  {t:"",v:"()"},
+      {t:"k",v:"  Dim "},{t:"",v:"ws "},{t:"k",v:"As "},{t:"",v:"Worksheet"},
+      {t:"k",v:"  Dim "},{t:"",v:"lastRow "},{t:"k",v:"As Long"},
+      {t:"k",v:"  Dim "},{t:"",v:"invoiceNum "},{t:"k",v:"As Integer"},
+      {t:"c",v:"  ' Set worksheet reference"},
+      {t:"",v:"  Set ws = ThisWorkbook.Sheets("},{t:"s",v:'"Data"'},{t:"",v:")"},
+    ],
+    codeLines:[
+      "Sub GenerateInvoices()","  Dim ws As Worksheet","  Dim lastRow As Long",
+      "  Dim invoiceNum As Integer","  ","  Set ws = ThisWorkbook.Sheets(\"Data\")",
+      "  lastRow = ws.Cells(ws.Rows.Count,1).End(xlUp).Row",
+    ]
   },
   {
     id:2, language:"Python", type:"Script", level:"Avanzado",
@@ -795,9 +797,14 @@ const PRODUCTS = [
     price:449, originalPrice:null,
     rating:4.8, reviews:94, sales:612, lines:890, files:5,
     tags:["Python","Pandas","Data Science","ETL"],
-    badge:"Nuevo", badgeColor:"#10B981",
-    gradient:["#FF2D78","#AA1050"], icon:"🐍", filename:"main.py",
-    code:["import pandas as pd","import numpy as np","from typing import Optional, Dict","","class DataCleaner:","  def __init__(self, df: pd.DataFrame,","               config: Optional[Dict] = None):","    self.df = df.copy()"]
+    badge:"Nuevo", badgeColor:"#34C759",
+    accentColor:"#FF2D78", dotColor:"#FF375F",
+    icon:"🐍", filename:"main.py",
+    codeLines:[
+      "import pandas as pd","import numpy as np","from typing import Optional, Dict","",
+      "class DataCleaner:","  def __init__(self, df: pd.DataFrame,",
+      "               config: Optional[Dict] = None):","    self.df = df.copy()",
+    ]
   },
   {
     id:3, language:"VBA", type:"Manual", level:"Principiante",
@@ -806,9 +813,14 @@ const PRODUCTS = [
     price:199, originalPrice:299,
     rating:4.7, reviews:203, sales:1203, lines:null, files:1,
     tags:["VBA","Excel","PDF","148 páginas"],
-    badge:"Top Rated", badgeColor:"#00C8F0",
-    gradient:["#00C8F0","#FF2D78"], icon:"📘", filename:"README.md",
-    code:["# Manual VBA Desde Cero","## Capítulo 1: Introducción","","VBA (Visual Basic for Applications)","es el lenguaje de automatización","integrado en Microsoft Office.","Aprenderás a crear macros desde","cero con ejemplos prácticos."]
+    badge:"Top Rated", badgeColor:"#007AFF",
+    accentColor:"#007AFF", dotColor:"#0A84FF",
+    icon:"📘", filename:"README.md",
+    codeLines:[
+      "# Manual VBA Desde Cero","## Capítulo 1: Introducción","",
+      "VBA (Visual Basic for Applications)","es el lenguaje de automatización",
+      "integrado en Microsoft Office.","Aprenderás a crear macros desde","cero con ejemplos prácticos.",
+    ]
   },
   {
     id:4, language:"JavaScript", type:"Script", level:"Intermedio",
@@ -817,251 +829,177 @@ const PRODUCTS = [
     price:299, originalPrice:399,
     rating:4.6, reviews:67, sales:394, lines:650, files:2,
     tags:["JavaScript","Apps Script","Google Sheets","Reportes"],
-    badge:null, badgeColor:null,
-    gradient:["#FCD34D","#D97706"], icon:"📊", filename:"main.js",
-    code:["function generateReport() {","  const ss = SpreadsheetApp","    .getActiveSpreadsheet();","  const sheet = ss.getSheetByName","    ('Data');","  const data = sheet.getDataRange()","    .getValues();","  processAndExport(data);"]
+    badge:null,
+    accentColor:"#FF9500", dotColor:"#FF9F0A",
+    icon:"📊", filename:"main.js",
+    codeLines:[
+      "function generateReport() {","  const ss = SpreadsheetApp",
+      "    .getActiveSpreadsheet();","  const sheet = ss.getSheetByName('Data');",
+      "  const data = sheet.getDataRange().getValues();","  processAndExport(data);","}",
+    ]
   }
 ];
 
-const LANG_THEMES = {
-  VBA:        {bg:"#1C1040",accent:"#00C8F0",dot:"#00A8CC"},
-  Python:     {bg:"#1A0D35",accent:"#FF2D78",dot:"#CC1F5C"},
-  JavaScript: {bg:"#1A1000",accent:"#FCD34D",dot:"#F59E0B"},
-  SQL:        {bg:"#0D1535",accent:"#A78BFA",dot:"#7C3AED"},
-};
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// ── BUILD CARD ──────────────────────────────
-function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-function buildCard(p) {
-  const t = LANG_THEMES[p.language] || LANG_THEMES.VBA;
+function buildProductCard(p) {
   const discount = p.originalPrice ? Math.round((1-p.price/p.originalPrice)*100) : null;
   const waMsg = `Hola! Me interesa comprar *${p.title}* — $${p.price} MXN. ¿Cómo procedo?`;
-
-  const codeLines = p.code.map((line,i) => `
-    <div class="code-line">
-      <span class="line-num">${i+1}</span>
-      <span class="line-code ${i%3===0&&i>0?'dim':''}" style="${i===0?'color:'+t.accent:''}">${escHtml(line)||'&nbsp;'}</span>
-    </div>`).join('');
-
-  const statsHtml = p.lines ? `
-    <div class="code-stats">
-      <div class="stat"><span class="stat-val" style="color:${t.accent}">${p.lines.toLocaleString()}</span><span class="stat-label">líneas</span></div>
-      <div class="stat"><span class="stat-val" style="color:${t.accent}">${p.files}</span><span class="stat-label">archivos</span></div>
-      <div class="stat"><span class="stat-val" style="color:${t.accent}">${p.level}</span></div>
-    </div>` : '';
-
-  const badgeHtml = p.badge ? `<span class="status-badge" style="color:${p.badgeColor};background:${p.badgeColor}18;border-color:${p.badgeColor}40">${p.badge}</span>` : '';
-  const discountHtml = discount ? `<span class="discount-badge">-${discount}%</span>` : '';
-  const origHtml = p.originalPrice ? `<span class="original-price">$${p.originalPrice}</span>` : '';
-  const tagsHtml = p.tags.map(tag=>`<span class="tag">${tag}</span>`).join('');
+  const badgeHtml = p.badge ? `<span class="p-badge-status" style="background:${p.badgeColor}18;color:${p.badgeColor};border:1px solid ${p.badgeColor}35">${p.badge}</span>` : '';
+  const discountHtml = discount ? `<span class="p-badge-status" style="background:#BF5AF218;color:#BF5AF2;border:1px solid #BF5AF235">-${discount}%</span>` : '';
+  const origHtml = p.originalPrice ? `<div class="product-price-orig">$${p.originalPrice}</div>` : '';
+  const statsHtml = p.lines ? `<div class="code-stats-row"><span class="cs"><b>${p.lines.toLocaleString()}</b> líneas</span><span class="cs"><b>${p.files}</b> archivos</span><span class="cs">Nivel: <b>${p.level}</b></span></div>` : '';
+  const codeLines = p.codeLines.map((line, i) =>
+    `<div class="code-line"><span class="ln">${i+1}</span><span class="lc">${esc(line)||' '}</span></div>`
+  ).join('');
+  const tagsHtml = p.tags.map(t => `<span class="p-tag">${t}</span>`).join('');
 
   return `
-  <div class="card" data-lang="${p.language}" data-type="${p.type}" id="card-${p.id}">
-    <div class="card-topbar" style="background:linear-gradient(90deg,${p.gradient[0]},${p.gradient[1]})"></div>
-    <div class="card-header">
-      <div class="card-meta">
-        <div class="card-badges">
-          <span style="font-size:19px;line-height:1">${p.icon}</span>
-          <span class="lang-badge" style="background:${t.bg};border-color:${t.accent}40;color:${t.accent}">
-            <span class="lang-dot" style="background:${t.dot};box-shadow:0 0 6px ${t.dot}"></span>${p.language}
-          </span>
-          <span class="type-badge">${p.type}</span>
+  <div class="product-card" id="card-${p.id}">
+    <div class="product-card-top">
+      <div class="product-accent-bar" style="background:${p.accentColor}"></div>
+      <div class="product-main">
+        <div class="product-header">
+          <div class="product-badges">
+            <span style="font-size:18px">${p.icon}</span>
+            <span class="p-badge" style="background:${p.accentColor}15;color:${p.accentColor};border:1px solid ${p.accentColor}30">${p.language}</span>
+            <span class="p-badge" style="background:#F2F2F7;color:#6D6D72;border:1px solid rgba(0,0,0,.08)">${p.type}</span>
+            ${badgeHtml}
+          </div>
+          <div class="product-price-top">
+            ${origHtml}
+            <div class="product-price">$${p.price} <span class="product-price-cur">MXN</span></div>
+            ${discountHtml}
+          </div>
         </div>
-        ${badgeHtml}
-      </div>
-      <div class="card-title">${p.title}</div>
-      <div class="card-tagline">${p.tagline}</div>
-    </div>
-    <div class="code-wrap">
-      <div class="code-header">
-        <div class="traffic-lights">
-          <span class="tl" style="background:#FF5F57"></span>
-          <span class="tl" style="background:#FEBC2E"></span>
-          <span class="tl" style="background:#28C840"></span>
+        <div class="product-title">${p.title}</div>
+        <div class="product-tagline">${p.tagline}</div>
+
+        <div class="code-preview">
+          <div class="code-bar">
+            <div class="code-dots">
+              <span class="code-dot" style="background:#FF5F57"></span>
+              <span class="code-dot" style="background:#FEBC2E"></span>
+              <span class="code-dot" style="background:#28C840"></span>
+            </div>
+            <span class="code-fname">${p.filename}</span>
+            <button class="code-toggle" onclick="toggleCode(${p.id},this)">▼ preview</button>
+          </div>
+          <div class="code-lines" id="code-${p.id}">
+            ${codeLines}
+            <div class="code-fade-out" id="fade-${p.id}"></div>
+          </div>
+          ${statsHtml}
         </div>
-        <span class="code-filename">${p.filename}</span>
-        <button class="preview-btn" style="border:1px solid ${t.accent}40;color:${t.accent}" onclick="togglePreview(${p.id},this)">▼ PREVIEW</button>
+
+        <div class="product-tags">${tagsHtml}</div>
       </div>
-      <div class="code-body" id="code-body-${p.id}">
-        ${codeLines}
-        <div class="code-fade" id="code-fade-${p.id}" style="background:linear-gradient(transparent,#160F2A)"></div>
-      </div>
-      ${statsHtml}
     </div>
-    <div class="tags">${tagsHtml}</div>
-    <div class="card-footer">
-      <div class="rating-block">
-        <div><span class="stars">★★★★★</span><span class="rating-val">${p.rating}</span></div>
-        <div class="review-count">${p.reviews} reviews · ${p.sales.toLocaleString()} ventas</div>
+
+    <div class="product-footer">
+      <div class="product-rating">
+        <div class="stars-row">
+          <span class="stars">★★★★★</span>
+          <span class="rating-num">${p.rating}</span>
+        </div>
+        <div class="rating-meta">${p.reviews} reseñas · ${p.sales.toLocaleString()} ventas</div>
       </div>
-      <div class="price-block">
-        <div class="price-row">${discountHtml}${origHtml}<span class="price">$${p.price} <span class="price-currency">MXN</span></span></div>
-        <a class="buy-btn" href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waMsg)}" target="_blank"
-           style="border-color:${t.accent}60;color:#fff;background:linear-gradient(135deg,#1a3a1a,#1a4a1a)"
-           onmouseover="this.style.background='#25D366';this.style.borderColor='#25D366';this.style.boxShadow='0 0 20px rgba(37,211,102,.5)'"
-           onmouseout="this.style.background='linear-gradient(135deg,#1a3a1a,#1a4a1a)';this.style.borderColor='${t.accent}60';this.style.boxShadow='none'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Comprar por WhatsApp
-        </a>
-      </div>
+      <a class="buy-wa-btn" href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waMsg)}" target="_blank">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Comprar por WhatsApp
+      </a>
     </div>
   </div>`;
 }
 
-function togglePreview(id, btn) {
-  const body = document.getElementById('code-body-'+id);
-  const fade = document.getElementById('code-fade-'+id);
-  const isOpen = body.classList.toggle('expanded');
-  btn.textContent = isOpen ? '▲ CERRAR' : '▼ PREVIEW';
-  fade.style.opacity = isOpen ? '0' : '1';
+function toggleCode(id, btn) {
+  const el = document.getElementById('code-'+id);
+  const fade = document.getElementById('fade-'+id);
+  const open = el.classList.toggle('open');
+  btn.textContent = open ? '▲ cerrar' : '▼ preview';
+  if (fade) fade.style.opacity = open ? '0' : '1';
 }
 
-function addHoverEffects() {
-  document.querySelectorAll('.card').forEach(card => {
-    const t = LANG_THEMES[card.dataset.lang] || LANG_THEMES.VBA;
-    card.addEventListener('mouseenter', () => {
-      card.style.borderColor = t.accent+'60';
-      card.style.boxShadow = `0 20px 60px rgba(0,0,0,.6),0 0 0 1px ${t.accent}25`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.borderColor = '';
-      card.style.boxShadow = '';
-    });
-  });
+function renderProducts(filter) {
+  const filtered = filter === 'todos' ? PRODUCTS
+    : PRODUCTS.filter(p => p.language === filter || (filter === 'Manual' && p.type === 'Manual'));
+  document.getElementById('product-list').innerHTML = filtered.map(buildProductCard).join('');
 }
 
-function renderGrid(filter) {
-  const filtered = filter==='todos' ? PRODUCTS : PRODUCTS.filter(p=>p.language===filter||(filter==='Manual'&&p.type==='Manual'));
-  document.getElementById('grid').innerHTML = filtered.map(buildCard).join('');
-  addHoverEffects();
-}
-
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    renderGrid(btn.dataset.filter);
-  });
+document.getElementById('filters-row').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-pill');
+  if (!btn) return;
+  document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(btn.dataset.filter);
 });
 
-// ════════════════════════════════════════════
+// ══════════════════════════════════════════
 // BLOG
-// ════════════════════════════════════════════
+// ══════════════════════════════════════════
 const POSTS = [
-  {
-    id:1, cat:"Lanzamiento", catColor:"#FF2D78",
-    date:"2 Mar 2026", emoji:"🚀",
-    bgGrad:["#1a0520","#2d0a3a"],
+  { id:1, cat:"Lanzamiento", catColor:"#FF2D78", date:"2 Mar 2026", emoji:"🚀",
     title:"DEVSTRUCTURE v1.0 ya está en vivo",
-    excerpt:"Después de meses de desarrollo, lanzamos oficialmente nuestra plataforma de productos digitales. Conoce todo lo que incluye este primer release.",
-    content:`
-      <h1>🚀 DEVSTRUCTURE v1.0 ya está en vivo</h1>
-      <p>Hoy es un día histórico para DEVSTRUCTURE. Después de meses de trabajo, investigación y pruebas, lanzamos oficialmente nuestra plataforma de productos digitales para analistas y desarrolladores de habla hispana.</p>
-      <h3>¿Qué incluye v1.0?</h3>
-      <p>En este primer release encontrarás nuestros primeros 4 productos insignia:</p>
-      <p>• <strong>Invoice Automator Pro</strong> — Genera facturas masivas con VBA<br>
-         • <strong>Pandas Data Cleaner</strong> — Limpieza inteligente de datasets con Python<br>
-         • <strong>Manual VBA Desde Cero</strong> — 148 páginas para principiantes<br>
-         • <strong>Google Sheets Automator</strong> — Apps Script para reportes automáticos</p>
-      <h3>¿Cómo funciona el proceso de compra?</h3>
-      <p>Simple: haces clic en <strong>"Comprar por WhatsApp"</strong> en el producto que quieras, te llega un mensaje pre-cargado con el nombre del producto y el precio, nos escribes y coordinamos la entrega del archivo en minutos.</p>
-      <h3>Próximas semanas</h3>
-      <p>Estaremos lanzando nuevos productos cada semana. Si tienes alguna necesidad específica de automatización, <strong>contáctanos</strong> — también hacemos desarrollos personalizados.</p>
-    `
+    excerpt:"Después de meses de desarrollo, lanzamos oficialmente nuestra plataforma de productos digitales.",
+    content:`<h1>🚀 DEVSTRUCTURE v1.0 ya está en vivo</h1>
+    <p>Hoy lanzamos oficialmente nuestra plataforma. Encuentra macros VBA, scripts Python y manuales técnicos listos para usar.</p>
+    <h3>¿Cómo funciona el proceso de compra?</h3>
+    <p>Haz clic en <strong>"Comprar por WhatsApp"</strong> en el producto que quieras, te llega un mensaje pre-cargado y coordinamos la entrega en minutos.</p>
+    <h3>Próximas semanas</h3>
+    <p>Estaremos lanzando nuevos productos cada semana. Si tienes una necesidad específica de automatización, contáctanos — también hacemos desarrollos personalizados.</p>`
   },
-  {
-    id:2, cat:"Producto", catColor:"#00C8F0",
-    date:"28 Feb 2026", emoji:"⚡",
-    bgGrad:["#051520","#0a2535"],
+  { id:2, cat:"Producto", catColor:"#007AFF", date:"28 Feb 2026", emoji:"⚡",
     title:"Invoice Automator Pro: genera 500 facturas en 8 segundos",
-    excerpt:"Nuestro producto más vendido ahora incluye soporte para múltiples monedas, validación automática de RFC y exportación a PDF en lote.",
-    content:`
-      <h1>⚡ Invoice Automator Pro — Actualización mayor</h1>
-      <p>Invoice Automator Pro acaba de recibir su actualización más grande desde su creación. La v2.3 llega con características que nuestros usuarios llevan tiempo pidiendo.</p>
-      <h3>Novedades en v2.3</h3>
-      <p>La macro ahora soporta <strong>múltiples monedas</strong> (MXN, USD, EUR) con conversión automática basada en el tipo de cambio del día. Solo necesitas conexión a internet.</p>
-      <pre><code>Sub GenerateInvoices()
-  Dim currency As String
-  currency = GetCellValue("Config", "B2")
-  rate = FetchExchangeRate(currency)
-  ' ... resto del proceso
-End Sub</code></pre>
-      <h3>Validación de RFC</h3>
-      <p>Integración con el SAT para validar que el RFC del receptor esté activo antes de generar la factura. Cero facturas rechazadas por datos incorrectos.</p>
-      <h3>Precio sin cambios</h3>
-      <p>La actualización es <strong>gratuita</strong> para todos los compradores actuales. Si ya tienes el producto, solo contáctanos y te enviamos la versión actualizada.</p>
-    `
+    excerpt:"Actualización mayor: soporte para múltiples monedas, validación de RFC y exportación a PDF en lote.",
+    content:`<h1>⚡ Invoice Automator Pro — v2.3</h1>
+    <p>La macro ahora soporta múltiples monedas (MXN, USD, EUR) con conversión automática basada en el tipo de cambio del día.</p>
+    <h3>Validación de RFC</h3>
+    <p>Integración con el SAT para validar que el RFC esté activo antes de generar la factura. Cero facturas rechazadas.</p>
+    <h3>Actualización gratuita</h3>
+    <p>Si ya tienes el producto, contáctanos y te enviamos la versión actualizada sin costo.</p>`
   },
-  {
-    id:3, cat:"Tutorial", catColor:"#A78BFA",
-    date:"22 Feb 2026", emoji:"🐍",
-    bgGrad:["#180520","#2a0a38"],
-    title:"Por qué Python es la mejor herramienta para analistas de datos en 2026",
-    excerpt:"Si aún usas Excel para todo tu análisis, este artículo es para ti. Te mostramos por qué Python + Pandas puede transformar tu forma de trabajar.",
-    content:`
-      <h1>🐍 Python para analistas: el salto que vale la pena</h1>
-      <p>En 2026, seguir haciendo todo tu análisis de datos en Excel no es una limitación técnica — es una decisión de carrera. Python, especialmente con Pandas, ha madurado hasta ser la herramienta más poderosa para el trabajo del analista moderno.</p>
-      <h3>El problema con Excel para datos grandes</h3>
-      <p>Excel empieza a fallar con archivos de más de 100,000 filas. Se tarda. Se crashea. Las fórmulas se vuelven inmanejables. Y cuando necesitas repetir el mismo proceso la semana siguiente, tienes que hacerlo todo de nuevo.</p>
-      <h3>Lo que cambia con Python</h3>
-      <pre><code>import pandas as pd
-
-# Limpiar un dataset de 1M de filas en segundos
+  { id:3, cat:"Tutorial", catColor:"#BF5AF2", date:"22 Feb 2026", emoji:"🐍",
+    title:"Por qué Python es la mejor herramienta para analistas en 2026",
+    excerpt:"Si aún usas Excel para todo tu análisis, este artículo es para ti.",
+    content:`<h1>🐍 Python para analistas</h1>
+    <p>Excel empieza a fallar con archivos de más de 100,000 filas. Python con Pandas resuelve esto en segundos.</p>
+    <pre><code>import pandas as pd
 df = pd.read_csv('ventas_2025.csv')
-df_clean = df.dropna().drop_duplicates()
-df_clean['fecha'] = pd.to_datetime(df_clean['fecha'])
-reporte = df_clean.groupby('region')['monto'].sum()
+reporte = df.groupby('region')['monto'].sum()
 reporte.to_excel('reporte_final.xlsx')</code></pre>
-      <p>Ese código de 6 líneas reemplaza 2 horas de trabajo manual en Excel. Y lo mejor: la próxima vez que lo necesites, solo ejecutas el script.</p>
-      <h3>¿Por dónde empezar?</h3>
-      <p>Nuestro <strong>Pandas Data Cleaner</strong> incluye documentación completa con ejemplos reales de análisis de ventas, limpieza de bases de datos de clientes y generación de reportes automáticos.</p>
-    `
+    <p>Ese código de 4 líneas reemplaza 2 horas de trabajo manual en Excel.</p>`
   },
-  {
-    id:4, cat:"Novedades", catColor:"#F59E0B",
-    date:"15 Feb 2026", emoji:"📣",
-    bgGrad:["#1a1200","#2a1e00"],
+  { id:4, cat:"Novedades", catColor:"#FF9500", date:"15 Feb 2026", emoji:"📣",
     title:"Roadmap 2026: lo que viene en DEVSTRUCTURE",
-    excerpt:"Compartimos nuestra hoja de ruta para este año: nuevos lenguajes, bundles temáticos, comunidad y mucho más. Spoiler: hay algo grande en camino.",
-    content:`
-      <h1>📣 Roadmap DEVSTRUCTURE 2026</h1>
-      <p>Queremos ser transparentes con nuestra comunidad sobre lo que estamos construyendo. Aquí va nuestro roadmap público para 2026.</p>
-      <h3>Q1 2026 — Base sólida ✅</h3>
-      <p>Lanzamiento de la plataforma, primeros 4 productos, sistema de ventas por WhatsApp. <strong>Completado.</strong></p>
-      <h3>Q2 2026 — Expansión de catálogo</h3>
-      <p>Estaremos lanzando productos en <strong>SQL</strong> (consultas optimizadas para analistas), <strong>PowerShell</strong> (automatización de Windows) y el primer <strong>Bundle Analista</strong> que incluirá macro + manual + soporte personalizado.</p>
-      <h3>Q3 2026 — Comunidad</h3>
-      <p>Estamos construyendo un servidor de Discord donde los compradores puedan compartir sus casos de uso, pedir ayuda y acceder a contenido exclusivo. Think: Stack Overflow pero solo para usuarios de nuestros productos.</p>
-      <h3>Q4 2026 — El proyecto grande 👀</h3>
-      <p>No podemos decir mucho todavía, pero tiene que ver con <strong>inteligencia artificial aplicada a la automatización de procesos contables</strong>. Mantente al tanto.</p>
-    `
+    excerpt:"Nuevos lenguajes, bundles temáticos, comunidad y mucho más.",
+    content:`<h1>📣 Roadmap DEVSTRUCTURE 2026</h1>
+    <h3>Q1 ✅</h3><p>Lanzamiento de la plataforma y primeros 4 productos.</p>
+    <h3>Q2 — Expansión</h3><p>Productos en SQL, PowerShell y el primer Bundle Analista.</p>
+    <h3>Q3 — Comunidad</h3><p>Servidor de Discord para compradores con contenido exclusivo.</p>
+    <h3>Q4 — Proyecto grande 👀</h3><p>IA aplicada a la automatización de procesos contables. Mantente al tanto.</p>`
   },
 ];
 
 function renderBlog() {
-  const grid = document.getElementById('blog-grid');
-  grid.innerHTML = POSTS.map((p,i) => `
-    <div class="blog-card" style="animation-delay:${i*0.08}s" onclick="openPost(${p.id})">
-      <div class="blog-card-img" style="background:linear-gradient(135deg,${p.bgGrad[0]},${p.bgGrad[1]})">${p.emoji}</div>
+  document.getElementById('blog-list').innerHTML = POSTS.map((p,i) => `
+    <div class="blog-card" style="animation-delay:${i*.07}s" onclick="openPost(${p.id})">
+      <div class="blog-card-emoji">${p.emoji}</div>
       <div class="blog-card-body">
-        <div class="blog-meta">
-          <span class="blog-cat" style="background:${p.catColor}20;color:${p.catColor};border:1px solid ${p.catColor}40">${p.cat}</span>
+        <div class="blog-card-meta">
+          <span class="blog-cat-pill" style="background:${p.catColor}15;color:${p.catColor};border:1px solid ${p.catColor}30">${p.cat}</span>
           <span class="blog-date">${p.date}</span>
         </div>
         <div class="blog-card-title">${p.title}</div>
         <div class="blog-card-excerpt">${p.excerpt}</div>
-        <span class="blog-read-more">Leer más <span>→</span></span>
       </div>
+      <div class="blog-card-arrow">›</div>
     </div>`).join('');
 }
 
 function openPost(id) {
-  const p = POSTS.find(x=>x.id===id);
-  const modal = document.getElementById('post-modal');
-  const body = document.getElementById('post-body');
-  body.innerHTML = `<button class="post-close" onclick="closePost()">✕</button>${p.content}`;
-  modal.classList.add('open');
+  const p = POSTS.find(x => x.id === id);
+  document.getElementById('post-body').innerHTML = `<button class="modal-close" onclick="closePost()">✕</button>${p.content}`;
+  document.getElementById('post-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 function closePost() {
@@ -1069,110 +1007,79 @@ function closePost() {
   document.body.style.overflow = '';
 }
 
-// ════════════════════════════════════════════
-// SPACE INVADERS — BUG INVADERS
-// ════════════════════════════════════════════
+// ══════════════════════════════════════════
+// ARCADE — BUG INVADERS
+// ══════════════════════════════════════════
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-
 const BUGS = ['🐛','🦠','💀','🔴','⚠️'];
-const BUG_LABELS = ['NullPtr','404Err','Seg.Fault','TypeError','StackOverflow'];
+const BUG_LABELS = ['NullPtr','404Err','Seg.Fault','TypeError','StackOvf'];
 
 let game = {
   running:false, paused:false,
   score:0, hiScore:0, level:1, lives:3,
   player:null, bullets:[], bugs:[], bugBullets:[],
   particles:[], stars:[],
-  bugDir:1, bugSpeed:0.5, bugDropped:false,
-  shootCooldown:0, bugShootTimer:0,
+  bugDir:1, bugSpeed:0.6,
+  shootCooldown:0, bugShootTimer:180,
   animFrame:null
 };
 
 function initStars() {
-  game.stars = Array.from({length:80},()=>({
+  game.stars = Array.from({length:70}, () => ({
     x:Math.random()*800, y:Math.random()*480,
-    r:Math.random()*1.5+0.5, speed:Math.random()*0.3+0.1,
-    alpha:Math.random()*0.6+0.2
+    r:Math.random()*1.4+0.4, speed:Math.random()*0.25+0.1,
+    alpha:Math.random()*0.5+0.15
   }));
 }
-
 function createBugs(level) {
-  const rows = Math.min(3+Math.floor(level/2),5);
-  const cols = 9;
-  const bugs = [];
-  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) {
-    bugs.push({
-      x: 80 + c*70, y: 60 + r*55,
-      w:42, h:36,
-      type: r % BUGS.length,
-      alive:true, hit:false, hitTimer:0
-    });
-  }
-  return bugs;
+  const rows = Math.min(3+Math.floor(level/2), 5), cols = 9;
+  const arr = [];
+  for (let r=0; r<rows; r++) for (let c=0; c<cols; c++)
+    arr.push({ x:80+c*70, y:55+r*52, w:42, h:34, type:r%BUGS.length, alive:true });
+  return arr;
 }
-
 function startGame() {
-  if(game.animFrame) cancelAnimationFrame(game.animFrame);
-  game.score=0; game.level=1; game.lives=3;
-  game.player = {x:380, y:440, w:44, h:28, speed:5};
-  game.bullets=[]; game.bugBullets=[]; game.particles=[];
+  if (game.animFrame) cancelAnimationFrame(game.animFrame);
+  Object.assign(game, {
+    score:0, level:1, lives:3,
+    player:{x:378, y:440, w:44, h:28, speed:5},
+    bullets:[], bugBullets:[], particles:[],
+    bugDir:1, bugSpeed:0.6,
+    shootCooldown:0, bugShootTimer:180,
+    running:true, paused:false
+  });
   game.bugs = createBugs(1);
-  game.bugDir=1; game.bugSpeed=0.6; game.bugDropped=false;
-  game.shootCooldown=0; game.bugShootTimer=180;
-  game.running=true; game.paused=false;
   document.getElementById('game-overlay').classList.remove('show');
   document.getElementById('restart-btn').disabled = false;
-  initStars();
-  updateHUD();
-  loop();
+  initStars(); updateHUD(); loop();
 }
-
-function stopGame(){ game.running=false; if(game.animFrame) cancelAnimationFrame(game.animFrame); }
+function stopGame() { game.running = false; if (game.animFrame) cancelAnimationFrame(game.animFrame); }
 
 const KEYS = {};
-document.addEventListener('keydown',e=>{
-  KEYS[e.code]=true;
-  if(e.code==='Space'){e.preventDefault(); if(game.running&&!game.paused) shoot();}
-  if(e.code==='KeyP'&&game.running) game.paused=!game.paused;
+document.addEventListener('keydown', e => {
+  KEYS[e.code] = true;
+  if (e.code === 'Space') { e.preventDefault(); if (game.running && !game.paused) shoot(); }
+  if (e.code === 'KeyP' && game.running) game.paused = !game.paused;
 });
-document.addEventListener('keyup',e=>KEYS[e.code]=false);
+document.addEventListener('keyup', e => KEYS[e.code] = false);
 
-// Touch controls — escala correctamente el canvas lógico (800px) vs visual
-function getCanvasScale() {
-  return canvas.getBoundingClientRect().width / canvas.width;
-}
-
-let touchStartX = 0;
-let touchMoved = false;
-canvas.addEventListener('touchstart', e => {
-  touchStartX = e.touches[0].clientX;
-  touchMoved = false;
-  e.preventDefault();
-}, {passive:false});
-
+function getCanvasScale() { return canvas.getBoundingClientRect().width / canvas.width; }
+let touchStartX = 0, touchMoved = false;
+canvas.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; touchMoved = false; e.preventDefault(); }, {passive:false});
 canvas.addEventListener('touchmove', e => {
   if (!game.running || !game.player) return;
-  const scale = getCanvasScale();
-  const dx = (e.touches[0].clientX - touchStartX) / scale;
-  game.player.x = Math.max(0, Math.min(800 - game.player.w, game.player.x + dx));
-  touchStartX = e.touches[0].clientX;
-  touchMoved = true;
-  e.preventDefault();
+  const dx = (e.touches[0].clientX - touchStartX) / getCanvasScale();
+  game.player.x = Math.max(0, Math.min(800-game.player.w, game.player.x + dx));
+  touchStartX = e.touches[0].clientX; touchMoved = true; e.preventDefault();
 }, {passive:false});
+canvas.addEventListener('touchend', e => { if (!touchMoved) shoot(); e.preventDefault(); }, {passive:false});
 
-canvas.addEventListener('touchend', e => {
-  // Solo dispara si fue tap, no arrastre
-  if (!touchMoved) shoot();
-  e.preventDefault();
-}, {passive:false});
-
-// Botones en pantalla para móvil
 document.getElementById('btn-left').addEventListener('touchstart',  e=>{ KEYS['ArrowLeft']=true;  e.preventDefault(); },{passive:false});
 document.getElementById('btn-left').addEventListener('touchend',    e=>{ KEYS['ArrowLeft']=false; e.preventDefault(); },{passive:false});
 document.getElementById('btn-right').addEventListener('touchstart', e=>{ KEYS['ArrowRight']=true;  e.preventDefault(); },{passive:false});
 document.getElementById('btn-right').addEventListener('touchend',   e=>{ KEYS['ArrowRight']=false; e.preventDefault(); },{passive:false});
 document.getElementById('btn-fire').addEventListener('touchstart',  e=>{ shoot(); e.preventDefault(); },{passive:false});
-// También funciona con mouse para probar en desktop
 document.getElementById('btn-left').addEventListener('mousedown',  ()=> KEYS['ArrowLeft']=true);
 document.getElementById('btn-left').addEventListener('mouseup',    ()=> KEYS['ArrowLeft']=false);
 document.getElementById('btn-right').addEventListener('mousedown', ()=> KEYS['ArrowRight']=true);
@@ -1180,253 +1087,141 @@ document.getElementById('btn-right').addEventListener('mouseup',   ()=> KEYS['Ar
 document.getElementById('btn-fire').addEventListener('mousedown',  ()=> shoot());
 
 function shoot() {
-  if(game.shootCooldown>0) return;
+  if (game.shootCooldown > 0 || !game.running) return;
   game.bullets.push({x:game.player.x+game.player.w/2, y:game.player.y, speed:10});
-  game.shootCooldown=12;
+  game.shootCooldown = 12;
 }
-
-function spawnParticles(x,y,color,count=10) {
-  for(let i=0;i<count;i++) {
-    const angle=Math.random()*Math.PI*2;
-    const speed=Math.random()*4+1;
-    game.particles.push({x,y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,r:Math.random()*3+2,life:40,color});
+function spawnParticles(x, y, color, n=10) {
+  for (let i=0; i<n; i++) {
+    const a=Math.random()*Math.PI*2, s=Math.random()*4+1;
+    game.particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,r:Math.random()*3+1,life:40,color});
   }
 }
-
-function loop() {
-  if(!game.running){return;}
-  game.animFrame = requestAnimationFrame(loop);
-  if(game.paused){
-    ctx.fillStyle='rgba(0,0,0,0.4)';
-    ctx.fillRect(0,0,800,480);
-    ctx.fillStyle='#00C8F0';
-    ctx.font='bold 36px JetBrains Mono, monospace';
-    ctx.textAlign='center';
-    ctx.fillText('// PAUSED',400,240);
-    ctx.font='14px JetBrains Mono, monospace';
-    ctx.fillStyle='#9B8FBF';
-    ctx.fillText('Presiona P para continuar',400,275);
-    return;
-  }
-  update();
-  draw();
-}
-
-function update() {
-  // Player move
-  if(KEYS['ArrowLeft']||KEYS['KeyA']) game.player.x = Math.max(0, game.player.x - game.player.speed);
-  if(KEYS['ArrowRight']||KEYS['KeyD']) game.player.x = Math.min(800-game.player.w, game.player.x + game.player.speed);
-  if(game.shootCooldown>0) game.shootCooldown--;
-
-  // Player bullets
-  game.bullets = game.bullets.filter(b=>{
-    b.y -= b.speed;
-    // hit bugs
-    for(let bug of game.bugs) {
-      if(!bug.alive) continue;
-      if(b.x>bug.x&&b.x<bug.x+bug.w&&b.y>bug.y&&b.y<bug.y+bug.h) {
-        bug.alive=false;
-        const pts = (bug.type+1)*10*game.level;
-        game.score += pts;
-        spawnParticles(bug.x+bug.w/2, bug.y+bug.h/2, '#FF2D78', 14);
-        updateHUD();
-        return false;
-      }
-    }
-    return b.y>0;
-  });
-
-  // Bugs move
-  const aliveBugs = game.bugs.filter(b=>b.alive);
-  if(aliveBugs.length===0){ nextLevel(); return; }
-
-  let hitWall=false;
-  for(let bug of aliveBugs){
-    bug.x += game.bugDir * game.bugSpeed;
-    if(bug.x<=0||bug.x+bug.w>=800) hitWall=true;
-    if(bug.hitTimer>0){ bug.hitTimer--; }
-    // Bug reaches bottom → lose life
-    if(bug.y+bug.h >= game.player.y) {
-      loseLife(); return;
-    }
-  }
-  if(hitWall){
-    game.bugDir*=-1;
-    for(let bug of aliveBugs) bug.y+=16;
-  }
-
-  // Bug shooting
-  game.bugShootTimer--;
-  if(game.bugShootTimer<=0 && aliveBugs.length>0) {
-    const shooter = aliveBugs[Math.floor(Math.random()*aliveBugs.length)];
-    game.bugBullets.push({x:shooter.x+shooter.w/2, y:shooter.y+shooter.h, speed:3+game.level*0.4});
-    game.bugShootTimer = Math.max(40, 120 - game.level*10);
-  }
-
-  // Bug bullets
-  game.bugBullets = game.bugBullets.filter(b=>{
-    b.y += b.speed;
-    const px=game.player.x, py=game.player.y, pw=game.player.w, ph=game.player.h;
-    if(b.x>px&&b.x<px+pw&&b.y>py&&b.y<py+ph){ loseLife(); return false; }
-    return b.y<480;
-  });
-
-  // Particles
-  game.particles = game.particles.filter(p=>{
-    p.x+=p.vx; p.y+=p.vy; p.vy+=0.1; p.life--;
-    return p.life>0;
-  });
-
-  // Stars parallax
-  game.stars.forEach(s=>{ s.y+=s.speed; if(s.y>480) s.y=0; });
-
-  // Speed up as fewer bugs remain
-  const ratio = aliveBugs.length / game.bugs.length;
-  game.bugSpeed = (0.6 + (1-ratio)*1.4 + (game.level-1)*0.3);
-}
-
 function loseLife() {
-  game.lives--;
-  spawnParticles(game.player.x+game.player.w/2, game.player.y+game.player.h/2, '#FF2D78', 20);
-  game.player.x=356;
-  game.bugBullets=[];
-  updateHUD();
-  if(game.lives<=0) gameOver();
+  game.lives--; spawnParticles(game.player.x+22, game.player.y+14, '#FF3B30', 20);
+  game.player.x = 378; game.bugBullets = []; updateHUD();
+  if (game.lives <= 0) gameOver();
 }
-
 function nextLevel() {
-  game.level++;
-  game.bugs = createBugs(game.level);
-  game.bugDir=1; game.bugSpeed=0.6+game.level*0.3;
-  game.bugBullets=[]; game.bullets=[];
-  game.bugShootTimer=120;
+  game.level++; game.bugs = createBugs(game.level);
+  game.bugDir = 1; game.bugSpeed = 0.6 + game.level*0.3;
+  game.bugBullets = []; game.bullets = []; game.bugShootTimer = 120;
   updateHUD();
 }
-
 function gameOver() {
-  game.running=false;
-  if(game.score>game.hiScore) game.hiScore=game.score;
-  document.getElementById('hud-hi').textContent=game.hiScore;
-  const ov=document.getElementById('game-overlay');
-  ov.innerHTML=`
-    <div class="overlay-title" style="color:var(--magenta);text-shadow:0 0 30px var(--magenta)">GAME OVER</div>
+  game.running = false;
+  if (game.score > game.hiScore) game.hiScore = game.score;
+  document.getElementById('hud-hi').textContent = game.hiScore;
+  const ov = document.getElementById('game-overlay');
+  ov.innerHTML = `<div class="overlay-title" style="color:#FF3B30;text-shadow:0 0 24px #FF3B30">GAME OVER</div>
     <div class="overlay-score">Score: ${game.score}</div>
-    <div class="overlay-sub">Los bugs destruyeron tu código...<br>¡Inténtalo de nuevo!</div>
-    <button class="arcade-btn" onclick="startGame()">↺ REINTENTAR</button>`;
+    <div class="overlay-sub">Los bugs ganaron esta vez...</div>
+    <button class="start-btn" onclick="startGame()">↺ Reintentar</button>`;
   ov.classList.add('show');
 }
-
 function updateHUD() {
-  document.getElementById('hud-score').textContent=game.score;
-  document.getElementById('hud-level').textContent=game.level;
-  document.getElementById('hud-hi').textContent=game.hiScore;
-  const livesEl=document.getElementById('hud-lives');
-  livesEl.innerHTML='';
-  for(let i=0;i<3;i++){
-    const s=document.createElement('span');
-    s.className='life-icon';
-    s.textContent='♥';
-    s.style.opacity=i<game.lives?'1':'0.15';
-    livesEl.appendChild(s);
+  document.getElementById('hud-score').textContent = game.score;
+  document.getElementById('hud-level').textContent = game.level;
+  document.getElementById('hud-hi').textContent = game.hiScore;
+  const lv = document.getElementById('hud-lives');
+  lv.innerHTML = '';
+  for (let i=0; i<3; i++) {
+    const s = document.createElement('span'); s.className = 'life-icon'; s.textContent = '♥';
+    s.style.opacity = i < game.lives ? '1' : '0.15'; lv.appendChild(s);
   }
 }
+function loop() {
+  if (!game.running) return;
+  game.animFrame = requestAnimationFrame(loop);
+  if (game.paused) {
+    ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillRect(0,0,800,480);
+    ctx.fillStyle = '#00C8F0'; ctx.font = 'bold 32px JetBrains Mono, monospace';
+    ctx.textAlign = 'center'; ctx.fillText('// PAUSED', 400, 240);
+    return;
+  }
+  update(); draw();
+}
+function update() {
+  if (KEYS['ArrowLeft']||KEYS['KeyA']) game.player.x = Math.max(0, game.player.x-game.player.speed);
+  if (KEYS['ArrowRight']||KEYS['KeyD']) game.player.x = Math.min(800-game.player.w, game.player.x+game.player.speed);
+  if (game.shootCooldown > 0) game.shootCooldown--;
 
-function draw() {
-  // BG
-  ctx.fillStyle='#080514';
-  ctx.fillRect(0,0,800,480);
-
-  // Stars
-  game.stars.forEach(s=>{
-    ctx.globalAlpha=s.alpha;
-    ctx.fillStyle='#fff';
-    ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();
+  game.bullets = game.bullets.filter(b => {
+    b.y -= b.speed;
+    for (let bug of game.bugs) {
+      if (!bug.alive) continue;
+      if (b.x>bug.x && b.x<bug.x+bug.w && b.y>bug.y && b.y<bug.y+bug.h) {
+        bug.alive = false;
+        game.score += (bug.type+1)*10*game.level;
+        spawnParticles(bug.x+bug.w/2, bug.y+bug.h/2, '#FF2D78', 12);
+        updateHUD(); return false;
+      }
+    }
+    return b.y > 0;
   });
-  ctx.globalAlpha=1;
 
-  // Bugs
-  for(let bug of game.bugs) {
-    if(!bug.alive) continue;
-    ctx.save();
-    ctx.font=`${bug.h-4}px serif`;
-    ctx.textAlign='center';
-    ctx.textBaseline='middle';
-    // Glow
-    ctx.shadowBlur=12; ctx.shadowColor=bug.hitTimer>0?'#fff':'#FF2D78';
-    ctx.globalAlpha=bug.hitTimer>0?0.5:1;
-    ctx.fillText(BUGS[bug.type], bug.x+bug.w/2, bug.y+bug.h/2);
-    ctx.restore();
-    // Label
-    ctx.font='8px JetBrains Mono, monospace';
-    ctx.fillStyle='rgba(255,45,120,0.7)';
-    ctx.textAlign='center';
-    ctx.fillText(BUG_LABELS[bug.type], bug.x+bug.w/2, bug.y+bug.h+10);
+  const alive = game.bugs.filter(b => b.alive);
+  if (alive.length === 0) { nextLevel(); return; }
+
+  let hitWall = false;
+  for (let bug of alive) {
+    bug.x += game.bugDir * game.bugSpeed;
+    if (bug.x <= 0 || bug.x+bug.w >= 800) hitWall = true;
+    if (bug.y+bug.h >= game.player.y) { loseLife(); return; }
+  }
+  if (hitWall) { game.bugDir *= -1; for (let bug of alive) bug.y += 14; }
+
+  game.bugShootTimer--;
+  if (game.bugShootTimer <= 0 && alive.length > 0) {
+    const s = alive[Math.floor(Math.random()*alive.length)];
+    game.bugBullets.push({x:s.x+s.w/2, y:s.y+s.h, speed:3+game.level*0.4});
+    game.bugShootTimer = Math.max(40, 120-game.level*10);
   }
 
-  // Player ship — drawn as SVG-like shape
-  const px=game.player.x, py=game.player.y, pw=game.player.w, ph=game.player.h;
-  ctx.save();
-  ctx.shadowBlur=15; ctx.shadowColor='#00C8F0';
-  ctx.fillStyle='#00C8F0';
-  // Fuselage
-  ctx.beginPath();
-  ctx.moveTo(px+pw/2, py);
-  ctx.lineTo(px+pw,   py+ph);
-  ctx.lineTo(px+pw*0.65, py+ph*0.75);
-  ctx.lineTo(px+pw/2,    py+ph*0.55);
-  ctx.lineTo(px+pw*0.35, py+ph*0.75);
-  ctx.lineTo(px,         py+ph);
-  ctx.closePath();
-  ctx.fill();
-  // Cockpit
-  ctx.fillStyle='#FF2D78';
-  ctx.shadowColor='#FF2D78';
-  ctx.beginPath();
-  ctx.arc(px+pw/2, py+ph*0.35, 5, 0, Math.PI*2);
-  ctx.fill();
+  game.bugBullets = game.bugBullets.filter(b => {
+    b.y += b.speed;
+    const {x:px,y:py,w:pw,h:ph} = game.player;
+    if (b.x>px && b.x<px+pw && b.y>py && b.y<py+ph) { loseLife(); return false; }
+    return b.y < 480;
+  });
+
+  game.particles = game.particles.filter(p => { p.x+=p.vx; p.y+=p.vy; p.vy+=0.1; return --p.life > 0; });
+  game.stars.forEach(s => { s.y += s.speed; if (s.y > 480) s.y = 0; });
+  const ratio = alive.length / game.bugs.length;
+  game.bugSpeed = 0.6 + (1-ratio)*1.4 + (game.level-1)*0.3;
+}
+function draw() {
+  ctx.fillStyle = '#080514'; ctx.fillRect(0,0,800,480);
+  game.stars.forEach(s => { ctx.globalAlpha=s.alpha; ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill(); });
+  ctx.globalAlpha = 1;
+
+  for (let bug of game.bugs) {
+    if (!bug.alive) continue;
+    ctx.save(); ctx.font=`${bug.h-2}px serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.shadowBlur=10; ctx.shadowColor='#FF2D78'; ctx.fillText(BUGS[bug.type], bug.x+bug.w/2, bug.y+bug.h/2); ctx.restore();
+    ctx.font='8px JetBrains Mono,monospace'; ctx.fillStyle='rgba(255,45,120,.6)'; ctx.textAlign='center';
+    ctx.fillText(BUG_LABELS[bug.type], bug.x+bug.w/2, bug.y+bug.h+9);
+  }
+
+  const {x:px,y:py,w:pw,h:ph} = game.player;
+  ctx.save(); ctx.shadowBlur=14; ctx.shadowColor='#007AFF'; ctx.fillStyle='#007AFF';
+  ctx.beginPath(); ctx.moveTo(px+pw/2,py); ctx.lineTo(px+pw,py+ph); ctx.lineTo(px+pw*.65,py+ph*.75);
+  ctx.lineTo(px+pw/2,py+ph*.55); ctx.lineTo(px+pw*.35,py+ph*.75); ctx.lineTo(px,py+ph); ctx.closePath(); ctx.fill();
+  ctx.fillStyle='#FF2D78'; ctx.shadowColor='#FF2D78'; ctx.beginPath(); ctx.arc(px+pw/2,py+ph*.35,5,0,Math.PI*2); ctx.fill();
   ctx.restore();
 
-  // Ground line
-  ctx.strokeStyle='rgba(0,200,240,0.15)';
-  ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(0,470); ctx.lineTo(800,470); ctx.stroke();
+  ctx.strokeStyle='rgba(0,200,240,.12)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(0,468); ctx.lineTo(800,468); ctx.stroke();
 
-  // Player bullets
-  for(let b of game.bullets) {
-    ctx.save();
-    ctx.shadowBlur=12; ctx.shadowColor='#00C8F0';
-    ctx.fillStyle='#00C8F0';
-    ctx.fillRect(b.x-2, b.y, 4, 14);
-    ctx.restore();
-  }
-
-  // Bug bullets — look like red error codes
-  for(let b of game.bugBullets) {
-    ctx.save();
-    ctx.shadowBlur=8; ctx.shadowColor='#FF2D78';
-    ctx.fillStyle='#FF2D78';
-    ctx.beginPath(); ctx.arc(b.x, b.y, 4, 0, Math.PI*2); ctx.fill();
-    ctx.restore();
-  }
-
-  // Particles
-  for(let p of game.particles) {
-    ctx.save();
-    ctx.globalAlpha = p.life/40;
-    ctx.fillStyle=p.color;
-    ctx.shadowBlur=6; ctx.shadowColor=p.color;
-    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
-    ctx.restore();
-  }
+  for (let b of game.bullets) { ctx.save(); ctx.shadowBlur=10; ctx.shadowColor='#007AFF'; ctx.fillStyle='#007AFF'; ctx.fillRect(b.x-2,b.y,4,13); ctx.restore(); }
+  for (let b of game.bugBullets) { ctx.save(); ctx.shadowBlur=7; ctx.shadowColor='#FF3B30'; ctx.fillStyle='#FF3B30'; ctx.beginPath(); ctx.arc(b.x,b.y,4,0,Math.PI*2); ctx.fill(); ctx.restore(); }
+  for (let p of game.particles) { ctx.save(); ctx.globalAlpha=p.life/40; ctx.fillStyle=p.color; ctx.shadowBlur=5; ctx.shadowColor=p.color; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); ctx.restore(); }
 }
 
-// ════════════════════════════════════════════
-// WA FLOAT BUTTON default link
-// ════════════════════════════════════════════
-document.getElementById('wa-float').href=`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hola! Tengo una consulta sobre DEVSTRUCTURE 👋')}`;
+// ══ WA FLOAT ══
+document.getElementById('wa-float').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hola! Tengo una consulta sobre DEVSTRUCTURE 👋')}`;
 
-// ── INIT ──
-renderGrid('todos');
+// ══ INIT ══
+renderProducts('todos');
 renderBlog();
 </script>
 </body>
